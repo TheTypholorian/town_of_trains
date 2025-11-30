@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "town_of_trains",
+  "version": "${version}",
+  "name": "Town of Trains",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/town_of_trains/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.typho.town_of_trains.client.TownOfTrainsClient"
+    ],
+    "main": [
+      "net.typho.town_of_trains.TownOfTrains"
+    ]
+  },
+  "mixins": [
+    "town_of_trains.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "minecraft": "${minecraft_version}"
+  }
+}

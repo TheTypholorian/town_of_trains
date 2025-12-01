@@ -3,8 +3,12 @@ package net.typho.town_of_trains.client
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.minecraft.client.option.KeyBinding
+import net.minecraft.text.Text
 import net.typho.town_of_trains.gui.TownConfigScreen
+import net.typho.town_of_trains.packet.ConfigChangePacket
 import org.lwjgl.glfw.GLFW
 
 object TownOfTrainsClient : ClientModInitializer {
@@ -14,6 +18,16 @@ object TownOfTrainsClient : ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register { client ->
             while (OPEN_CONFIG.wasPressed()) {
                 client.setScreen(TownConfigScreen())
+            }
+        }
+        ClientPlayConnectionEvents.JOIN.register { handler, sender, client ->
+            client.player?.sendMessage(Text.translatable("credits.trainmurdermystery.thank_you"))
+        }
+        ClientPlayNetworking.registerGlobalReceiver(ConfigChangePacket.ID) { packet, context ->
+            if (packet.display) {
+                packet.changes.forEach { option ->
+                    context.player().sendMessage(option.getChangeText(), true)
+                }
             }
         }
     }

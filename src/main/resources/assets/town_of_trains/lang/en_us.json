@@ -16,6 +16,7 @@
   "gui.town_of_trains.player_position_type.never": "Never",
   "gui.town_of_trains.player_position_type.never.desc": "Never, regardless of the player and game state",
 
+  "config.tab.town_of_trains.gameplay": "Gameplay",
   "config.section.town_of_trains.restrictions": "Restrictions",
   "config.option.town_of_trains.chat": "Chat Enabled",
   "config.option.town_of_trains.perspective": "Perspective Enabled",
@@ -23,6 +24,12 @@
   "config.option.town_of_trains.name_tags": "Name Tags Enabled",
   "config.option.town_of_trains.sprinting": "Sprinting Enabled",
   "config.option.town_of_trains.jumping": "Jumping Enabled",
+
+  "config.tab.town_of_trains.killer_roles": "§cKiller Roles",
+
+  "config.tab.town_of_trains.vigilante_roles": "§9Vigilante Roles",
+
+  "config.tab.town_of_trains.civilian_roles": "§aCivilian Roles",
 
   "key.town_of_trains.config": "Open Config",
   "key.categories.town_of_trains": "Town of Trains"

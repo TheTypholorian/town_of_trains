@@ -1,26 +1,36 @@
 package net.typho.town_of_trains.config
 
 import com.mojang.serialization.Codec
+import io.netty.buffer.ByteBuf
+import net.fabricmc.api.EnvType
+import net.fabricmc.api.Environment
+import net.minecraft.client.MinecraftClient
 import net.minecraft.client.sound.PositionedSoundInstance
 import net.minecraft.network.codec.PacketCodec
 import net.minecraft.network.codec.PacketCodecs
+import net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket
 import net.minecraft.sound.SoundEvents
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.MathHelper
 import net.typho.town_of_trains.HasName
 import net.typho.town_of_trains.TownOfTrains
+import net.typho.town_of_trains.packet.ConfigChangePacket
 import java.util.function.BiFunction
 import kotlin.enums.enumEntries
 
 data class ConfigOption<T>(
     var id: Identifier,
     var codec: Codec<T>,
-    var packetCodec: PacketCodec<*, T>,
+    var packetCodec: PacketCodec<ByteBuf, T>,
     var toText: ToText<T>,
     var cycle: BiFunction<T, ConfigWidget.CycleType, T>,
     var value: T
 ) : ConfigWidget {
+    init {
+        ALL_OPTIONS.put(id, this)
+    }
+
     override fun getName(): Text = Text.translatable(id.toTranslationKey("config.option"))
 
     override fun getDesc(): Text = Text.translatable(id.toTranslationKey("config.option", "desc"))
@@ -33,26 +43,34 @@ data class ConfigOption<T>(
                 info.mouseY >= buttonY && info.mouseY <= buttonY + info.buttonHeight
     }
 
+    @Environment(EnvType.CLIENT)
+    fun cycle(type: ConfigWidget.CycleType, client: MinecraftClient?) {
+        value = cycle.apply(value, type)
+        client?.soundManager?.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1f))
+        client?.networkHandler?.sendPacket(CustomPayloadC2SPacket(ConfigChangePacket(false, listOf(this))))
+    }
+
+    @Environment(EnvType.CLIENT)
     override fun mouseClicked(info: ConfigWidget.DrawInfo): Boolean {
         if (isButtonHovered(info)) {
-            value = cycle.apply(value, ConfigWidget.CycleType.CLICK)
-            info.client?.soundManager?.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1f))
+            cycle(ConfigWidget.CycleType.CLICK, info.client)
             return true
         }
 
         return false
     }
 
+    @Environment(EnvType.CLIENT)
     override fun mouseScrolled(info: ConfigWidget.DrawInfo, horizontal: Double, vertical: Double): Boolean {
         if (vertical != 0.0 && isButtonHovered(info)) {
-            value = cycle.apply(value, if (vertical > 0.0) ConfigWidget.CycleType.SCROLL_UP else ConfigWidget.CycleType.SCROLL_DOWN)
-            info.client?.soundManager?.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1f))
+            cycle(if (vertical > 0.0) ConfigWidget.CycleType.SCROLL_UP else ConfigWidget.CycleType.SCROLL_DOWN, info.client)
             return true
         }
 
         return false
     }
 
+    @Environment(EnvType.CLIENT)
     override fun draw(info: ConfigWidget.DrawInfo) {
         val name = getName()
         val textX = info.x + info.margin
@@ -90,6 +108,7 @@ data class ConfigOption<T>(
         }
     }
 
+    @Environment(EnvType.CLIENT)
     override fun postVisit(info: ConfigWidget.DrawInfo) {
         info.y += info.optionHeight + info.margin
     }
@@ -100,7 +119,19 @@ data class ConfigOption<T>(
 
     fun getValueDesc(): Text? = toText.toDesc(value)
 
+    fun getChangeText(): Text = getName().copy().append(" is now set to ").append(getValueText())
+
+    fun encode(buf: ByteBuf) {
+        packetCodec.encode(buf, value)
+    }
+
+    fun decode(buf: ByteBuf) {
+        value = packetCodec.decode(buf)
+    }
+
     companion object {
+        val ALL_OPTIONS = HashMap<Identifier, ConfigOption<*>>()
+
         fun ofInt(id: Identifier, min: Int, max: Int, value: Int = min) = ConfigOption(
             id,
             Codec.INT,

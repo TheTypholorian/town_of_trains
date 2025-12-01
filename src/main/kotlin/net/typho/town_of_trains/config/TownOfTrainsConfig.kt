@@ -18,9 +18,15 @@ object TownOfTrainsConfig {
     var gameplay = ConfigTab(TownOfTrains.id("gameplay"), listOf(
         restrictions
     ))
+    var killerRoles = ConfigTab(TownOfTrains.id("killer_roles"), listOf())
+    var vigilanteRoles = ConfigTab(TownOfTrains.id("vigilante_roles"), listOf())
+    var civilianRoles = ConfigTab(TownOfTrains.id("civilian_roles"), listOf())
 
     var tabs = listOf(
-        gameplay
+        gameplay,
+        killerRoles,
+        vigilanteRoles,
+        civilianRoles
     )
 
     fun isChatEnabled(player: PlayerEntity?): Boolean = chat.value.test(player)

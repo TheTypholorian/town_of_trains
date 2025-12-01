@@ -15,9 +15,21 @@ import java.util.function.BiConsumer
 class TownConfigScreen : Screen(Text.translatable("gui.town_of_trains.config")) {
     var tab = TownOfTrainsConfig.gameplay
 
+    fun getWidth() = 250
+
+    fun getHeight() = 500.coerceAtMost(height - 8)
+
     fun visitWidgets(info: ConfigWidget.DrawInfo, out: BiConsumer<ConfigWidget, ConfigWidget.DrawInfo>) {
-        out.accept(tab, info)
-        tab.postVisit(info)
+        val x = info.x
+        val y = info.y
+
+        TownOfTrainsConfig.tabs.forEach { tab ->
+            out.accept(tab, info)
+            tab.postVisit(info)
+        }
+
+        info.x = x + info.margin * 2
+        info.y = y + info.margin * 2
 
         tab.children.forEach { section ->
             out.accept(section, info)
@@ -31,23 +43,19 @@ class TownConfigScreen : Screen(Text.translatable("gui.town_of_trains.config")) 
     }
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        val width = 250
-        val height = 500
-
         val info = ConfigWidget.DrawInfo(
+            screen = this,
             client = client,
             context = null,
-            x = (this.width - width) / 2,
-            y = (this.height - height) / 2,
+            x = (this.width - getWidth()) / 2,
+            y = (this.height - getHeight()) / 2,
             mouseX = mouseX.toInt(),
             mouseY = mouseY.toInt(),
             textRenderer = textRenderer
         )
         info.fontHeight = client?.textRenderer?.fontHeight ?: 9
         info.optionHeight = info.fontHeight.coerceAtLeast(info.buttonHeight)
-        info.contentWidth = width - info.margin * 2
-        info.x += info.margin * 2
-        info.y += info.margin * 2
+        info.contentWidth = getWidth() - info.margin * 2
 
         var clicked = false
 
@@ -66,23 +74,19 @@ class TownConfigScreen : Screen(Text.translatable("gui.town_of_trains.config")) 
         horizontal: Double,
         vertical: Double
     ): Boolean {
-        val width = 250
-        val height = 500
-
         val info = ConfigWidget.DrawInfo(
+            screen = this,
             client = client,
             context = null,
-            x = (this.width - width) / 2,
-            y = (this.height - height) / 2,
+            x = (this.width - getWidth()) / 2,
+            y = (this.height - getHeight()) / 2,
             mouseX = mouseX.toInt(),
             mouseY = mouseY.toInt(),
             textRenderer = textRenderer
         )
         info.fontHeight = client?.textRenderer?.fontHeight ?: 9
         info.optionHeight = info.fontHeight.coerceAtLeast(info.buttonHeight)
-        info.contentWidth = width - info.margin * 2
-        info.x += info.margin * 2
-        info.y += info.margin * 2
+        info.contentWidth = getWidth() - info.margin * 2
 
         var scrolled = false
 
@@ -98,42 +102,27 @@ class TownConfigScreen : Screen(Text.translatable("gui.town_of_trains.config")) 
     override fun renderBackground(context: DrawContext, mouseX: Int, mouseY: Int, delta: Float) {
         super.renderBackground(context, mouseX, mouseY, delta)
 
-        val width = 250
-        val height = 500
-
         val info = ConfigWidget.DrawInfo(
+            screen = this,
             client = client,
             context = context,
-            x = (this.width - width) / 2,
-            y = (this.height - height) / 2,
+            x = (this.width - getWidth()) / 2,
+            y = (this.height - getHeight()) / 2,
             mouseX = mouseX,
             mouseY = mouseY,
             textRenderer = textRenderer
         )
         info.fontHeight = client?.textRenderer?.fontHeight ?: 9
         info.optionHeight = info.fontHeight.coerceAtLeast(info.buttonHeight)
-        info.contentWidth = width - info.margin * 2
+        info.contentWidth = getWidth() - info.margin * 2
 
         RenderSystem.enableBlend()
 
-        info.context?.drawGuiTexture(TownOfTrains.id("echo_border"), info.x, info.y, width, height)
-
-        info.x += info.margin * 2
-        info.y += info.margin * 2
+        info.context?.drawGuiTexture(TownOfTrains.id("echo_border"), info.x, info.y, getWidth(), getHeight())
 
         visitWidgets(info) { widget, info1 ->
             widget.draw(info1)
         }
-
-        /*
-        tab.children.forEach { section ->
-            info.context?.drawText(client?.textRenderer, section.getName().copy().formatted(Formatting.BOLD), info.x, info.y, -1, true)
-
-            info.y += info.fontHeight
-
-            section.children.forEach { option -> option.draw(info) }
-        }
-         */
 
         RenderSystem.disableBlend()
     }

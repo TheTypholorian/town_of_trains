@@ -142,15 +142,15 @@ data class ConfigOption<T>(
     companion object {
         val ALL_OPTIONS = HashMap<Identifier, ConfigOption<*>>()
 
-        fun ofInt(id: Identifier, min: Int, max: Int, value: Int = min) = ConfigOption(
+        fun ofInt(id: Identifier, min: Int, max: Int, inc: Int = 1, value: Int = min) = ConfigOption(
             id,
             Codec.INT,
             PacketCodecs.INTEGER,
             ToText.ToString(),
             { v, type ->
                 when (type) {
-                    ConfigWidget.CycleType.CLICK, ConfigWidget.CycleType.SCROLL_UP -> MathHelper.clamp(v + 1, min, max)
-                    ConfigWidget.CycleType.SCROLL_DOWN -> MathHelper.clamp(v - 1, min, max)
+                    ConfigWidget.CycleType.CLICK, ConfigWidget.CycleType.SCROLL_UP -> MathHelper.clamp(v + inc, min, max)
+                    ConfigWidget.CycleType.SCROLL_DOWN -> MathHelper.clamp(v - inc, min, max)
                 }
             },
             value
@@ -165,15 +165,15 @@ data class ConfigOption<T>(
             value
         )
 
-        fun ofFloat(id: Identifier, min: Float, max: Float, value: Float = 0f) = ConfigOption(
+        fun ofFloat(id: Identifier, min: Float, max: Float, inc: Float = 1f, value: Float = 0f) = ConfigOption(
             id,
             Codec.FLOAT,
             PacketCodecs.FLOAT,
             ToText.ToString(),
             { v, type ->
                 when (type) {
-                    ConfigWidget.CycleType.CLICK, ConfigWidget.CycleType.SCROLL_UP -> MathHelper.clamp(v + 1, min, max)
-                    ConfigWidget.CycleType.SCROLL_DOWN -> MathHelper.clamp(v - 1, min, max)
+                    ConfigWidget.CycleType.CLICK, ConfigWidget.CycleType.SCROLL_UP -> MathHelper.clamp(v + inc, min, max)
+                    ConfigWidget.CycleType.SCROLL_DOWN -> MathHelper.clamp(v - inc, min, max)
                 }
             },
             value

@@ -31,6 +31,9 @@
 
   "config.tab.town_of_trains.civilian_roles": "§aCivilian Roles",
 
+  "role.town_of_trains.taskmaster": "Taskmaster",
+  "role.town_of_trains.taskmaster.desc": "Rather than gaining shop coins passively, the killer gets them from completing tasks",
+
   "key.town_of_trains.config": "Open Config",
   "key.categories.town_of_trains": "Town of Trains"
 }

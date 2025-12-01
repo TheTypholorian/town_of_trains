@@ -1,0 +1,17 @@
+package net.typho.town_of_trains.roles
+
+import dev.doctor4t.trainmurdermystery.api.Role
+import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent
+import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.util.Identifier
+import net.typho.town_of_trains.config.ConfigOption
+
+class TaskmasterRole : TownOfTrainsRole {
+    val coinsPerTask = ConfigOption.ofInt(info.identifier().withSuffixedPath("/coins_per_task"), 5, 200, 5, 100)
+
+    constructor(id: Identifier, role: Role) : super(id, role)
+
+    override fun onTaskCompleted(player: PlayerEntity) {
+        PlayerShopComponent.KEY.get(player).addToBalance(coinsPerTask.value)
+    }
+}

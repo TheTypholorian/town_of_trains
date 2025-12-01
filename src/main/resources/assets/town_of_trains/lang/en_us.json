@@ -34,6 +34,11 @@
   "role.town_of_trains.taskmaster": "Taskmaster",
   "role.town_of_trains.taskmaster.desc": "Rather than gaining shop coins passively, the killer gets them from completing tasks",
 
+  "role.town_of_trains.ticket_inspector": "Ticket Inspector",
+  "role.town_of_trains.ticket_inspector.desc": "View what room a player has",
+  "role.town_of_trains.ticket_inspector.room": "%s - %s",
+  "role.town_of_trains.ticket_inspector.room.unknown": "Unknown",
+
   "key.town_of_trains.config": "Open Config",
   "key.categories.town_of_trains": "Town of Trains"
 }

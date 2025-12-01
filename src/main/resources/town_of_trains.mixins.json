@@ -11,7 +11,8 @@
     "RoleMixin",
     "SleepTaskMixin",
     "TMMMixin",
-    "client.LobbyPlayersRendererMixin"
+    "client.LobbyPlayersRendererMixin",
+    "client.RoleNameRendererMixin"
   ],
   "client": [
     "client.ChatHudMixin",

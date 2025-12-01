@@ -32,6 +32,8 @@ open class TownOfTrainsRole(val info: Role) : HasName {
 
     open fun hasIdleMoney(player: PlayerEntity) = info.canUseKiller()
 
+    open fun getNameTag(withRole: PlayerEntity, lookTarget: PlayerEntity, original: Text): Text = original
+
     fun getKey(): Identifier = info.identifier()
 
     override fun getName(): Text = Text.translatable(getKey().toTranslationKey("role"))

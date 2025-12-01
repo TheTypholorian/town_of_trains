@@ -3,12 +3,15 @@ package net.typho.town_of_trains.roles
 import dev.doctor4t.trainmurdermystery.api.Role
 import dev.doctor4t.trainmurdermystery.api.TMMRoles
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent
+import net.minecraft.block.BlockState
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.World
 import net.typho.town_of_trains.HasName
 
-open class TownOfTrainsRole(val info: Role) : HasName {
+abstract class TownOfTrainsRole(val info: Role) : HasName {
     constructor(id: Identifier, role: Role) : this(
         if (role.identifier().equals(id)) role else Role(
             id,
@@ -32,7 +35,7 @@ open class TownOfTrainsRole(val info: Role) : HasName {
 
     open fun hasIdleMoney(player: PlayerEntity) = info.canUseKiller()
 
-    open fun canSeePoison(player: PlayerEntity) = info.canUseKiller()
+    open fun canSeePoison(player: PlayerEntity, world: World, pos: BlockPos, state: BlockState) = info.canUseKiller()
 
     open fun getNameTag(withRole: PlayerEntity, lookTarget: PlayerEntity, original: Text): Text = original
 

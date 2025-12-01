@@ -8,6 +8,7 @@ import net.typho.town_of_trains.TownOfTrains
 object ModRoles {
     val TASKMASTER = TaskmasterRole(TownOfTrains.id("taskmaster"), TMMRoles.KILLER)
     val TICKET_INSPECTOR = TicketInspectorRole(TownOfTrains.id("ticket_inspector"), TMMRoles.CIVILIAN)
+    val BARTENDER = BartenderRole(TownOfTrains.id("bartender"), TMMRoles.CIVILIAN)
 
     fun init() {
         (TMMRoles.KILLER as RoleAttacher).`town_of_trains$setRole`(TASKMASTER)

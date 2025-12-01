@@ -11,6 +11,7 @@
     "RoleMixin",
     "SleepTaskMixin",
     "TMMMixin",
+    "client.BeveragePlateBlockEntityMixin",
     "client.LobbyPlayersRendererMixin",
     "client.RoleNameRendererMixin"
   ],

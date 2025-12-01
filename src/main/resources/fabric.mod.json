@@ -4,17 +4,25 @@
   "version": "${version}",
   "name": "Town of Trains",
   "description": "",
-  "authors": [],
+  "authors": [
+    "The Typhothanian"
+  ],
   "contact": {},
   "license": "MIT",
   "icon": "assets/town_of_trains/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
-      "net.typho.town_of_trains.client.TownOfTrainsClient"
+      {
+        "adapter": "kotlin",
+        "value": "net.typho.town_of_trains.client.TownOfTrainsClient"
+      }
     ],
     "main": [
-      "net.typho.town_of_trains.TownOfTrains"
+      {
+        "adapter": "kotlin",
+        "value": "net.typho.town_of_trains.TownOfTrains"
+      }
     ]
   },
   "mixins": [

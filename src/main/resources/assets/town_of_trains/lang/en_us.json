@@ -1,0 +1,25 @@
+{
+  "gui.town_of_trains.config": "Town of Trains Config",
+
+  "gui.town_of_trains.player_position_type.in_lobby": "In Lobby",
+  "gui.town_of_trains.player_position_type.in_lobby.desc": "Whenever the player is in the lobby, or on the train waiting for the game to start",
+  "gui.town_of_trains.player_position_type.game_active": "Game Active",
+  "gui.town_of_trains.player_position_type.game_active.desc": "Whenever there is a game active, regardless if the player is dead or not",
+  "gui.town_of_trains.player_position_type.dead": "Dead",
+  "gui.town_of_trains.player_position_type.dead.desc": "Whenever the player is dead",
+  "gui.town_of_trains.player_position_type.participant": "Participant",
+  "gui.town_of_trains.player_position_type.participant.desc": "Whenever the player is participating in game (not dead and game active)",
+  "gui.town_of_trains.player_position_type.not_participant": "Not Participant",
+  "gui.town_of_trains.player_position_type.not_participant.desc": "Whenever the player is not participating in a game (dead or in lobby)",
+  "gui.town_of_trains.player_position_type.always": "Always",
+  "gui.town_of_trains.player_position_type.always.desc": "Always, regardless of the player and game state",
+  "gui.town_of_trains.player_position_type.never": "Never",
+  "gui.town_of_trains.player_position_type.never.desc": "Never, regardless of the player and game state",
+
+  "config.section.town_of_trains.restrictions": "Restrictions",
+  "config.option.town_of_trains.chat_enabled": "Chat Enabled",
+  "config.option.town_of_trains.perspective_locked": "Perspective Locked",
+
+  "key.town_of_trains.config": "Open Config",
+  "key.categories.town_of_trains": "Town of Trains"
+}

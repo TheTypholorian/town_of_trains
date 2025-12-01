@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "2.2.21"
-    id("fabric-loom") version "1.10.5"
+    id("fabric-loom") version "1.13.6"
     id("maven-publish")
 }
 
@@ -26,20 +26,46 @@ java {
 
 
 repositories {
-    // Add repositories to retrieve artifacts from in here.
-    // You should only use this when depending on other mods because
-    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-    // for more information about repositories.
+    maven {
+        setUrl("https://maven.ladysnake.org/releases")
+    }
+    maven {
+        setUrl("https://maven.isxander.dev/releases")
+    }
+    maven { setUrl("https://maven.maxhenkel.de/releases") }
+    maven {
+        name = "Modrinth"
+        setUrl("https://api.modrinth.com/maven")
+    }
+
+    maven { setUrl("https://maven.bawnorton.com/releases") }
+
+    maven { setUrl("https://maven.enjarai.dev/mirrors") }
 }
 
 dependencies {
-    // To change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
     mappings("net.fabricmc:yarn:${project.property("yarn_mappings")}:v2")
     modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
     modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 
+    modImplementation("maven.modrinth:harpy-express-mod:${project.property("harpy_express_version")}")
+
+    modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.property("cca_version")}")
+    modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.property("cca_version")}")
+    modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-world:${project.property("cca_version")}")
+    modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-scoreboard:${project.property("cca_version")}")
+    modImplementation("maven.modrinth:midnightlib:${project.property("midnightlib_version")}")
+
+    implementation("de.maxhenkel.voicechat:voicechat-api:${project.property("voicechat_api_version")}")
+
+    modRuntimeOnly("maven.modrinth:simple-voice-chat:fabric-${project.property("voicechat_version")}")
+    modRuntimeOnly("de.maxhenkel.voicechat:voicechat-api:${project.property("voicechat_api_version")}:fabric-stub")
+
+    include("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${project.property("mixin_squared_version")}")
+    implementation("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${project.property("mixin_squared_version")}")
+    annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${project.property("mixin_squared_version")}")
 }
 
 tasks.processResources {

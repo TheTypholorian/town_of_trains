@@ -6,6 +6,9 @@
   "mixins": [
   ],
   "client": [
+    "client.ChatHudMixin",
+    "client.GameOptionsMixin",
+    "client.SleepingChatScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

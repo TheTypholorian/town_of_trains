@@ -1,6 +1,8 @@
 package net.typho.town_of_trains.config
 
+import com.google.gson.JsonElement
 import com.mojang.serialization.Codec
+import com.mojang.serialization.JsonOps
 import io.netty.buffer.ByteBuf
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
@@ -127,6 +129,14 @@ data class ConfigOption<T>(
 
     fun decode(buf: ByteBuf) {
         value = packetCodec.decode(buf)
+    }
+
+    fun encode(): JsonElement {
+        return codec.encodeStart(JsonOps.INSTANCE, value).orThrow
+    }
+
+    fun decode(json: JsonElement) {
+        value = codec.decode(JsonOps.INSTANCE, json).orThrow.first
     }
 
     companion object {

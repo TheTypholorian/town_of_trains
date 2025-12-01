@@ -11,7 +11,6 @@ import net.minecraft.util.math.MathHelper
 import net.typho.town_of_trains.HasName
 import net.typho.town_of_trains.TownOfTrains
 import java.util.function.BiFunction
-import java.util.function.Function
 import kotlin.enums.enumEntries
 
 data class ConfigOption<T>(
@@ -37,6 +36,16 @@ data class ConfigOption<T>(
     override fun mouseClicked(info: ConfigWidget.DrawInfo): Boolean {
         if (isButtonHovered(info)) {
             value = cycle.apply(value, ConfigWidget.CycleType.CLICK)
+            info.client?.soundManager?.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1f))
+            return true
+        }
+
+        return false
+    }
+
+    override fun mouseScrolled(info: ConfigWidget.DrawInfo, horizontal: Double, vertical: Double): Boolean {
+        if (vertical != 0.0 && isButtonHovered(info)) {
+            value = cycle.apply(value, if (vertical > 0.0) ConfigWidget.CycleType.SCROLL_UP else ConfigWidget.CycleType.SCROLL_DOWN)
             info.client?.soundManager?.play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1f))
             return true
         }
@@ -144,8 +153,14 @@ data class ConfigOption<T>(
                 toText,
                 { v, type ->
                     when (type) {
-                        ConfigWidget.CycleType.CLICK, ConfigWidget.CycleType.SCROLL_UP -> enumEntries<T>()[(v.ordinal + 1) % enumEntries<T>().size]
-                        ConfigWidget.CycleType.SCROLL_DOWN -> enumEntries<T>()[(v.ordinal - 1) % enumEntries<T>().size]
+                        ConfigWidget.CycleType.CLICK, ConfigWidget.CycleType.SCROLL_UP -> {
+                            val entries = enumEntries<T>()
+                            if (v.ordinal == entries.size - 1) entries.first() else entries[v.ordinal + 1]
+                        }
+                        ConfigWidget.CycleType.SCROLL_DOWN -> {
+                            val entries = enumEntries<T>()
+                            if (v.ordinal == 0) entries.last() else entries[v.ordinal - 1]
+                        }
                     }
                 },
                 value

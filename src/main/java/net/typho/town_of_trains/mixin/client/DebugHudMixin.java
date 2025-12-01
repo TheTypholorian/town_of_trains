@@ -4,24 +4,22 @@ import com.bawnorton.mixinsquared.TargetHandler;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.ChatHud;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.SleepingChatScreen;
+import net.minecraft.client.gui.hud.DebugHud;
 import net.typho.town_of_trains.config.TownOfTrainsConfig;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = SleepingChatScreen.class, priority = 1500)
-public abstract class SleepingChatScreenMixin extends ChatScreen {
-    public SleepingChatScreenMixin(String originalChatText) {
-        super(originalChatText);
-    }
+@Mixin(value = DebugHud.class, priority = 1500)
+public class DebugHudMixin {
+    @Shadow
+    @Final
+    private MinecraftClient client;
 
     @TargetHandler(
-            mixin = "dev.doctor4t.trainmurdermystery.mixin.client.restrictions.SleepingChatScreenMixin",
-            name = "tmm$disableSleepChat"
+            mixin = "dev.doctor4t.trainmurdermystery.mixin.client.restrictions.DebugHudMixin",
+            name = "shouldShowDebugHud"
     )
     @WrapOperation(
             method = "@MixinSquared:Handler",
@@ -31,7 +29,7 @@ public abstract class SleepingChatScreenMixin extends ChatScreen {
             ),
             remap = false
     )
-    private boolean disableChatRender(Operation<Boolean> original) {
-        return !TownOfTrainsConfig.INSTANCE.isChatEnabled(client == null ? null : client.player);
+    private boolean shouldShowDebugHud(Operation<Boolean> original) {
+        return !TownOfTrainsConfig.INSTANCE.isDebugScreenEnabled(client.player);
     }
 }

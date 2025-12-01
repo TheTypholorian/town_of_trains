@@ -18,10 +18,6 @@ data class ConfigSection(
 
     override fun getKey(): Identifier = id
 
-    override fun mouseClicked(info: ConfigWidget.DrawInfo): Boolean {
-        return false
-    }
-
     override fun draw(info: ConfigWidget.DrawInfo) {
         info.context?.drawText(info.textRenderer, getName().copy().formatted(Formatting.BOLD), info.x, info.y, -1, true)
     }

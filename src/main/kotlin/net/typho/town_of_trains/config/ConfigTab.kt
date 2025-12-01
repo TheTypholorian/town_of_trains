@@ -17,10 +17,6 @@ data class ConfigTab(
 
     override fun getKey(): Identifier = id
 
-    override fun mouseClicked(info: ConfigWidget.DrawInfo): Boolean {
-        return false
-    }
-
     override fun draw(info: ConfigWidget.DrawInfo) {
     }
 

@@ -9,7 +9,9 @@ import net.typho.town_of_trains.HasName
 interface ConfigWidget : HasName {
     fun getKey(): Identifier
 
-    fun mouseClicked(info: DrawInfo): Boolean
+    fun mouseClicked(info: DrawInfo): Boolean = false
+
+    fun mouseScrolled(info: DrawInfo, horizontal: Double, vertical: Double): Boolean = false
 
     fun draw(info: DrawInfo)
 

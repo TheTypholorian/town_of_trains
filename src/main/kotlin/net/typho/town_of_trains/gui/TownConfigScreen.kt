@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.text.Text
-import net.minecraft.util.Formatting
 import net.typho.town_of_trains.TownOfTrains
 import net.typho.town_of_trains.config.ConfigWidget
 import net.typho.town_of_trains.config.TownOfTrainsConfig
@@ -59,6 +58,41 @@ class TownConfigScreen : Screen(Text.translatable("gui.town_of_trains.config")) 
         }
 
         return clicked
+    }
+
+    override fun mouseScrolled(
+        mouseX: Double,
+        mouseY: Double,
+        horizontal: Double,
+        vertical: Double
+    ): Boolean {
+        val width = 250
+        val height = 500
+
+        val info = ConfigWidget.DrawInfo(
+            client = client,
+            context = null,
+            x = (this.width - width) / 2,
+            y = (this.height - height) / 2,
+            mouseX = mouseX.toInt(),
+            mouseY = mouseY.toInt(),
+            textRenderer = textRenderer
+        )
+        info.fontHeight = client?.textRenderer?.fontHeight ?: 9
+        info.optionHeight = info.fontHeight.coerceAtLeast(info.buttonHeight)
+        info.contentWidth = width - info.margin * 2
+        info.x += info.margin * 2
+        info.y += info.margin * 2
+
+        var scrolled = false
+
+        visitWidgets(info) { widget, info1 ->
+            if (widget.mouseScrolled(info1, horizontal, vertical)) {
+                scrolled = true
+            }
+        }
+
+        return scrolled
     }
 
     override fun renderBackground(context: DrawContext, mouseX: Int, mouseY: Int, delta: Float) {

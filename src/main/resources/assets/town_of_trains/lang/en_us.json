@@ -17,8 +17,12 @@
   "gui.town_of_trains.player_position_type.never.desc": "Never, regardless of the player and game state",
 
   "config.section.town_of_trains.restrictions": "Restrictions",
-  "config.option.town_of_trains.chat_enabled": "Chat Enabled",
-  "config.option.town_of_trains.perspective_locked": "Perspective Locked",
+  "config.option.town_of_trains.chat": "Chat Enabled",
+  "config.option.town_of_trains.perspective": "Perspective Enabled",
+  "config.option.town_of_trains.debug_screen": "Debug Screen Enabled",
+  "config.option.town_of_trains.name_tags": "Name Tags Enabled",
+  "config.option.town_of_trains.sprinting": "Sprinting Enabled",
+  "config.option.town_of_trains.jumping": "Jumping Enabled",
 
   "key.town_of_trains.config": "Open Config",
   "key.categories.town_of_trains": "Town of Trains"

@@ -4,11 +4,15 @@
   "package": "net.typho.town_of_trains.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "PlayerEntityMixin"
   ],
   "client": [
     "client.ChatHudMixin",
+    "client.DebugHudMixin",
     "client.GameOptionsMixin",
-    "client.SleepingChatScreenMixin"
+    "client.KeyBindingMixin",
+    "client.KeyboardMixin",
+    "client.PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -2,6 +2,7 @@ package net.typho.town_of_trains.roles
 
 import dev.doctor4t.trainmurdermystery.api.Role
 import dev.doctor4t.trainmurdermystery.api.TMMRoles
+import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
@@ -22,10 +23,11 @@ open class TownOfTrainsRole(val info: Role) : HasName {
 
     init {
         TMMRoles.registerRole(info)
-        ROLE_MAP.put(info, this)
+        ROLE_MAP[info] = this
+        (info as RoleAttacher).`town_of_trains$setRole`(this)
     }
 
-    open fun onTaskCompleted(player: PlayerEntity) {
+    open fun onTaskCompleted(player: PlayerEntity, task: PlayerMoodComponent.Task) {
     }
 
     open fun hasIdleMoney(player: PlayerEntity) = info.canUseKiller()

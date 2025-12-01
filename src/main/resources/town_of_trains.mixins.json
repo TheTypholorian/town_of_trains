@@ -5,8 +5,12 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "MurderGameModeMixin",
+    "OutsideTaskMixin",
     "PlayerEntityMixin",
+    "PlayerMoodComponentMixin",
     "RoleMixin",
+    "SleepTaskMixin",
+    "TMMMixin",
     "client.LobbyPlayersRendererMixin"
   ],
   "client": [

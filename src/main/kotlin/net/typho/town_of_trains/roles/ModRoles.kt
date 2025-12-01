@@ -6,15 +6,17 @@ import net.minecraft.entity.player.PlayerEntity
 import net.typho.town_of_trains.TownOfTrains
 
 object ModRoles {
-    fun init() = Unit
-
     val TASKMASTER = TaskmasterRole(TownOfTrains.id("taskmaster"), TMMRoles.KILLER)
 
+    fun init() {
+        (TMMRoles.KILLER as RoleAttacher).`town_of_trains$setRole`(TASKMASTER)
+    }
+
     fun PlayerEntity.getRole(): TownOfTrainsRole? {
-        return (GameWorldComponent.KEY.get(world).roles.get(uuid) as RoleAttacher).`town_of_trains$getRole`()
+        return ((GameWorldComponent.KEY.get(this.world).roles[this.uuid] ?: return null) as RoleAttacher).`town_of_trains$getRole`()
     }
 
     fun PlayerEntity.setRole(role: TownOfTrainsRole) {
-        (GameWorldComponent.KEY.get(world).roles.get(uuid) as RoleAttacher).`town_of_trains$setRole`(role)
+        ((GameWorldComponent.KEY.get(this.world).roles[this.uuid] ?: return) as RoleAttacher).`town_of_trains$setRole`(role)
     }
 }

@@ -1,6 +1,7 @@
 package net.typho.town_of_trains.roles
 
 import dev.doctor4t.trainmurdermystery.api.Role
+import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent
 import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.Identifier
@@ -11,7 +12,9 @@ class TaskmasterRole : TownOfTrainsRole {
 
     constructor(id: Identifier, role: Role) : super(id, role)
 
-    override fun onTaskCompleted(player: PlayerEntity) {
+    override fun onTaskCompleted(player: PlayerEntity, task: PlayerMoodComponent.Task) {
         PlayerShopComponent.KEY.get(player).addToBalance(coinsPerTask.value)
     }
+
+    override fun hasIdleMoney(player: PlayerEntity): Boolean = false
 }

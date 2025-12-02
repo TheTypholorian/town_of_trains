@@ -8,10 +8,23 @@ import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.typho.town_of_trains.TownOfTrains
 
-data class ConfigTab(
+open class ConfigTab(
     var id: Identifier,
     var children: List<ConfigSection>
 ) : ConfigWidget {
+    init {
+        children.forEach { child -> child.parent = this }
+    }
+
+    fun addChild(section: ConfigSection) {
+        if (section.parent != null && section.parent != this) {
+            throw IllegalStateException("Can't add config section " + section.id + " to multiple tabs")
+        }
+
+        children += section
+        section.parent = this
+    }
+
     override fun getName(): Text {
         return Text.translatable(id.toTranslationKey("config.tab"))
     }

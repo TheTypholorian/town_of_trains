@@ -21,18 +21,15 @@ import net.typho.town_of_trains.packet.ConfigChangePacket
 import java.util.function.BiFunction
 import kotlin.enums.enumEntries
 
-data class ConfigOption<T>(
+open class ConfigOption<T>(
     var id: Identifier,
     var codec: Codec<T>,
     var packetCodec: PacketCodec<ByteBuf, T>,
     var toText: ToText<T>,
     var cycle: BiFunction<T, ConfigWidget.CycleType, T>,
-    var value: T
+    var value: T,
+    var parent: ConfigSection? = null
 ) : ConfigWidget {
-    init {
-        ALL_OPTIONS.put(id, this)
-    }
-
     override fun getName(): Text = Text.translatable(id.toTranslationKey("config.option"))
 
     override fun getDesc(): Text = Text.translatable(id.toTranslationKey("config.option", "desc"))
@@ -75,7 +72,7 @@ data class ConfigOption<T>(
     @Environment(EnvType.CLIENT)
     override fun draw(info: ConfigWidget.DrawInfo) {
         val name = getName()
-        val textX = info.x + info.margin
+        val textX = info.x + info.margin * 2
         val textY = info.y + Math.ceilDiv(info.optionHeight - info.fontHeight, 2)
 
         info.context?.drawText(info.textRenderer, name, textX, textY, -1, true)
@@ -106,7 +103,11 @@ data class ConfigOption<T>(
         )
 
         if (hovered) {
-            info.context?.drawTooltip(info.textRenderer, toText.toDesc(value), info.mouseX, info.mouseY)
+            val desc = getValueDesc()
+
+            if (desc != null) {
+                info.context?.drawTooltip(info.textRenderer, desc, info.mouseX, info.mouseY)
+            }
         }
     }
 
@@ -140,9 +141,7 @@ data class ConfigOption<T>(
     }
 
     companion object {
-        val ALL_OPTIONS = HashMap<Identifier, ConfigOption<*>>()
-
-        fun ofInt(id: Identifier, min: Int, max: Int, inc: Int = 1, value: Int = min) = ConfigOption(
+        fun ofInt(id: Identifier, min: Int, max: Int, inc: Int, value: Int) = ConfigOption(
             id,
             Codec.INT,
             PacketCodecs.INTEGER,
@@ -156,7 +155,7 @@ data class ConfigOption<T>(
             value
         )
 
-        fun ofBool(id: Identifier, value: Boolean = true) = ConfigOption(
+        fun ofBool(id: Identifier, value: Boolean) = ConfigOption(
             id,
             Codec.BOOL,
             PacketCodecs.BOOL,
@@ -165,7 +164,7 @@ data class ConfigOption<T>(
             value
         )
 
-        fun ofFloat(id: Identifier, min: Float, max: Float, inc: Float = 1f, value: Float = 0f) = ConfigOption(
+        fun ofFloat(id: Identifier, min: Float, max: Float, inc: Float, value: Float) = ConfigOption(
             id,
             Codec.FLOAT,
             PacketCodecs.FLOAT,

@@ -16,6 +16,10 @@
   "gui.town_of_trains.player_position_type.never": "Never",
   "gui.town_of_trains.player_position_type.never.desc": "Never, regardless of the player and game state",
 
+  "config.option.town_of_trains.is_enabled": "Is Enabled",
+  "config.option.town_of_trains.weight": "Weight",
+  "config.option.town_of_trains.coins_per_task": "Coins Per Task Completed",
+
   "config.tab.town_of_trains.gameplay": "Gameplay",
   "config.section.town_of_trains.restrictions": "Restrictions",
   "config.option.town_of_trains.chat": "Chat Enabled",
@@ -31,13 +35,27 @@
 
   "config.tab.town_of_trains.civilian_roles": "§aCivilian Roles",
 
+  "config.tab.town_of_trains.neutral_roles": "§7Neutral Roles",
+
   "role.town_of_trains.taskmaster": "Taskmaster",
-  "role.town_of_trains.taskmaster.desc": "Rather than gaining shop coins passively, the killer gets them from completing tasks",
+  "role.town_of_trains.taskmaster.desc": "Rather than gaining shop coins passively, this killer gets them from completing tasks",
 
   "role.town_of_trains.ticket_inspector": "Ticket Inspector",
   "role.town_of_trains.ticket_inspector.desc": "View what room a player has",
   "role.town_of_trains.ticket_inspector.room": "%s - %s",
   "role.town_of_trains.ticket_inspector.room.unknown": "Unknown",
+
+  "role.town_of_trains.bartender": "Bartender",
+  "role.town_of_trains.bartender.desc": "Sees if drinks or food are poisoned",
+
+  "role.trainmurdermystery.killer": "Killer",
+  "role.trainmurdermystery.killer.desc": "Eliminate all targets with the tools in the shop",
+
+  "role.trainmurdermystery.civilian": "Civilian",
+  "role.trainmurdermystery.civilian.desc": "Find out the Killer(s)",
+
+  "role.trainmurdermystery.vigilante": "Vigilante",
+  "role.trainmurdermystery.vigilante.desc": "Take matters into your own hands and eliminate the killer(s)",
 
   "key.town_of_trains.config": "Open Config",
   "key.categories.town_of_trains": "Town of Trains"

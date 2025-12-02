@@ -34,12 +34,14 @@ object TownOfTrainsConfig {
     val killerRoles = ConfigTab(TownOfTrains.id("killer_roles"), listOf())
     val vigilanteRoles = ConfigTab(TownOfTrains.id("vigilante_roles"), listOf())
     val civilianRoles = ConfigTab(TownOfTrains.id("civilian_roles"), listOf())
+    val neutralRoles = ConfigTab(TownOfTrains.id("neutral_roles"), listOf())
 
     val tabs = listOf(
         gameplay,
         killerRoles,
         vigilanteRoles,
-        civilianRoles
+        civilianRoles,
+        neutralRoles
     )
 
     fun init() {
@@ -59,7 +61,16 @@ object TownOfTrainsConfig {
             save()
         }
         ServerPlayConnectionEvents.JOIN.register { handler, sender, server ->
-            ServerPlayNetworking.send(handler.player, ConfigChangePacket(false, ConfigOption.ALL_OPTIONS.values.toList()))
+            ServerPlayNetworking.send(
+                handler.player,
+                ConfigChangePacket(
+                    false,
+                    tabs.stream()
+                        .flatMap { tab -> tab.children.stream() }
+                        .flatMap { section -> section.children.stream() }
+                        .toList()
+                )
+            )
         }
         ServerLifecycleEvents.SERVER_STARTED.register { load() }
         ServerLifecycleEvents.SERVER_STOPPING.register { save() }

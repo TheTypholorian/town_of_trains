@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 
-class TicketInspectorRole(id: Identifier, role: Role) : TownOfTrainsRole(id, role) {
+class TicketInspectorRole(id: Identifier, type: RoleType, role: Role) : TownOfTrainsRole(id, type, role) {
     override fun getNameTag(withRole: PlayerEntity, lookTarget: PlayerEntity, original: Text): Text {
         var room: Text = Text.translatable(getKey().toTranslationKey("role", "room.unknown"))
 

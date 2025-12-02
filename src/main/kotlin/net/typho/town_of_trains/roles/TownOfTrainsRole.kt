@@ -2,18 +2,33 @@ package net.typho.town_of_trains.roles
 
 import dev.doctor4t.trainmurdermystery.api.Role
 import dev.doctor4t.trainmurdermystery.api.TMMRoles
+import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent
 import net.minecraft.block.BlockState
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.typho.town_of_trains.HasName
+import net.typho.town_of_trains.TownOfTrains
+import net.typho.town_of_trains.config.ConfigOption
+import net.typho.town_of_trains.config.ConfigSection
+import net.typho.town_of_trains.roles.ModRoles.setAttachedRole
+import java.util.*
 
-abstract class TownOfTrainsRole(val info: Role) : HasName {
-    constructor(id: Identifier, role: Role) : this(
-        if (role.identifier().equals(id)) role else Role(
+abstract class TownOfTrainsRole : ConfigSection, HasName {
+    val type: RoleType
+    val info: Role
+    val isEnabled = ConfigOption.ofBool(TownOfTrains.id("is_enabled"), true)
+    val weight = ConfigOption.ofInt(TownOfTrains.id("weight"), 0, 100, 5, 10)
+    var config: ConfigSection? = null
+
+    constructor(id: Identifier, type: RoleType, role: Role) : super(id, listOf()) {
+        this.type = type
+        this.info = if (role.identifier().equals(id)) role else Role(
             id,
             role.color(),
             role.isInnocent,
@@ -22,16 +37,15 @@ abstract class TownOfTrainsRole(val info: Role) : HasName {
             role.maxSprintTime,
             role.canSeeTime()
         )
-    )
-
-    init {
         TMMRoles.registerRole(info)
         ROLE_MAP[info] = this
-        (info as RoleAttacher).`town_of_trains$setRole`(this)
+        info.setAttachedRole(this)
+        addChild(isEnabled)
+        addChild(weight)
+        type.configTab.addChild(this)
     }
 
-    open fun onTaskCompleted(player: PlayerEntity, task: PlayerMoodComponent.Task) {
-    }
+    open fun onTaskCompleted(player: PlayerEntity, task: PlayerMoodComponent.Task) = Unit
 
     open fun hasIdleMoney(player: PlayerEntity) = info.canUseKiller()
 
@@ -39,7 +53,7 @@ abstract class TownOfTrainsRole(val info: Role) : HasName {
 
     open fun getNameTag(withRole: PlayerEntity, lookTarget: PlayerEntity, original: Text): Text = original
 
-    fun getKey(): Identifier = info.identifier()
+    open fun canBeChosen(context: RoleChoiceContext): Boolean = context.type == type
 
     override fun getName(): Text = Text.translatable(getKey().toTranslationKey("role"))
 
@@ -47,5 +61,30 @@ abstract class TownOfTrainsRole(val info: Role) : HasName {
 
     companion object {
         val ROLE_MAP = HashMap<Role, TownOfTrainsRole>()
+
+        fun pickRole(context: RoleChoiceContext): TownOfTrainsRole? {
+            val list = LinkedList<TownOfTrainsRole>()
+
+            for (role in ROLE_MAP.values) {
+                if (role.canBeChosen(context)) {
+                    repeat(role.weight.value) {
+                        list.add(role)
+                    }
+                }
+            }
+
+            if (list.isEmpty()) {
+                return context.type.defaultRole
+            }
+
+            return list.random()
+        }
     }
+
+    data class RoleChoiceContext(
+        val type: RoleType,
+        val world: ServerWorld,
+        val players: List<ServerPlayerEntity>,
+        val game: GameWorldComponent
+    )
 }

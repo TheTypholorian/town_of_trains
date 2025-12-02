@@ -6,6 +6,7 @@ import net.minecraft.network.packet.CustomPayload
 import net.minecraft.util.Identifier
 import net.typho.town_of_trains.TownOfTrains
 import net.typho.town_of_trains.config.ConfigOption
+import net.typho.town_of_trains.config.TownOfTrainsConfig
 import java.util.*
 
 data class ConfigChangePacket(
@@ -23,7 +24,15 @@ data class ConfigChangePacket(
                 val size = buf.readInt()
 
                 repeat(size) {
-                    var option = ConfigOption.ALL_OPTIONS.get(Identifier.PACKET_CODEC.decode(buf))!!
+                    var tabId = Identifier.PACKET_CODEC.decode(buf)
+                    var tab = TownOfTrainsConfig.tabs.find { tab -> tab.id == tabId }!!
+
+                    var sectionId = Identifier.PACKET_CODEC.decode(buf)
+                    var section = tab.children.find { section -> section.id == sectionId }!!
+
+                    var optionId = Identifier.PACKET_CODEC.decode(buf)
+                    var option = section.children.find { option -> option.id == optionId }!!
+
                     option.decode(buf)
                     list.add(option)
                 }
@@ -36,6 +45,8 @@ data class ConfigChangePacket(
                 buf.writeInt(packet.changes.size)
 
                 packet.changes.forEach { option ->
+                    Identifier.PACKET_CODEC.encode(buf, option.parent!!.parent!!.id)
+                    Identifier.PACKET_CODEC.encode(buf, option.parent!!.id)
                     Identifier.PACKET_CODEC.encode(buf, option.id)
                     option.encode(buf)
                 }

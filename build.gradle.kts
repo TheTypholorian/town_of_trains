@@ -23,8 +23,6 @@ java {
     withSourcesJar()
 }
 
-
-
 repositories {
     maven {
         setUrl("https://maven.ladysnake.org/releases")
@@ -41,6 +39,8 @@ repositories {
     maven { setUrl("https://maven.bawnorton.com/releases") }
 
     maven { setUrl("https://maven.enjarai.dev/mirrors") }
+
+    maven { setUrl("https://maven.uuid.gg/releases") }
 }
 
 dependencies {
@@ -51,6 +51,7 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 
     modImplementation("maven.modrinth:harpy-express-mod:${project.property("harpy_express_version")}")
+    modImplementation("dev.doctor4t:ratatouille:${project.property("ratatouille_version")}")
 
     modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.property("cca_version")}")
     modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.property("cca_version")}")
@@ -60,7 +61,7 @@ dependencies {
 
     implementation("de.maxhenkel.voicechat:voicechat-api:${project.property("voicechat_api_version")}")
 
-    modRuntimeOnly("maven.modrinth:simple-voice-chat:fabric-${project.property("voicechat_version")}")
+    modImplementation("maven.modrinth:simple-voice-chat:fabric-${project.property("voicechat_version")}")
     modRuntimeOnly("de.maxhenkel.voicechat:voicechat-api:${project.property("voicechat_api_version")}:fabric-stub")
 
     include("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${project.property("mixin_squared_version")}")

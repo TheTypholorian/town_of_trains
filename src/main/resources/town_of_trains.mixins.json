@@ -5,26 +5,33 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "GameRoundEndComponentMixin",
+    "GroupSoundPacketMixin",
+    "LocationSoundPacketMixin",
     "MurderGameModeMixin",
     "OutsideTaskMixin",
     "PlayerEntityMixin",
     "PlayerMoodComponentMixin",
+    "PlayerSoundPacketMixin",
     "RoleMixin",
     "ScoreboardRoleSelectorComponentMixin",
+    "ServerMixin",
     "SleepTaskMixin",
-    "TMMMixin",
-    "client.BeveragePlateBlockEntityMixin",
-    "client.LobbyPlayersRendererMixin",
-    "client.RoleNameRendererMixin",
-    "client.RoundTextRendererMixin"
+    "SoundPacketMixin",
+    "TMMMixin"
   ],
   "client": [
+    "client.AudioChannelMixin",
+    "client.BeveragePlateBlockEntityMixin",
     "client.ChatHudMixin",
     "client.DebugHudMixin",
     "client.GameOptionsMixin",
     "client.KeyBindingMixin",
     "client.KeyboardMixin",
-    "client.PlayerEntityRendererMixin"
+    "client.LobbyPlayersRendererMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.RoleNameRendererMixin",
+    "client.RoundTextRendererMixin",
+    "client.TMMConfigMixin"
   ],
   "injectors": {
     "defaultRequire": 1

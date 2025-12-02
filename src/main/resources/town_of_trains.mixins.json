@@ -4,16 +4,19 @@
   "package": "net.typho.town_of_trains.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "GameRoundEndComponentMixin",
     "MurderGameModeMixin",
     "OutsideTaskMixin",
     "PlayerEntityMixin",
     "PlayerMoodComponentMixin",
     "RoleMixin",
+    "ScoreboardRoleSelectorComponentMixin",
     "SleepTaskMixin",
     "TMMMixin",
     "client.BeveragePlateBlockEntityMixin",
     "client.LobbyPlayersRendererMixin",
-    "client.RoleNameRendererMixin"
+    "client.RoleNameRendererMixin",
+    "client.RoundTextRendererMixin"
   ],
   "client": [
     "client.ChatHudMixin",

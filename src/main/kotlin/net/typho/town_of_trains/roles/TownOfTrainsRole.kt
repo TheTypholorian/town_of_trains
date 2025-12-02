@@ -4,6 +4,7 @@ import dev.doctor4t.trainmurdermystery.api.Role
 import dev.doctor4t.trainmurdermystery.api.TMMRoles
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent
+import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts
 import net.minecraft.block.BlockState
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.server.network.ServerPlayerEntity
@@ -22,6 +23,7 @@ import java.util.*
 abstract class TownOfTrainsRole : ConfigSection, HasName {
     val type: RoleType
     val info: Role
+    val announcementText: RoleAnnouncementTexts.RoleAnnouncementText
     val isEnabled = ConfigOption.ofBool(TownOfTrains.id("is_enabled"), true)
     val weight = ConfigOption.ofInt(TownOfTrains.id("weight"), 0, 100, 5, 10)
     var config: ConfigSection? = null
@@ -37,6 +39,12 @@ abstract class TownOfTrainsRole : ConfigSection, HasName {
             role.maxSprintTime,
             role.canSeeTime()
         )
+        announcementText = when (this.info) {
+            TMMRoles.KILLER -> RoleAnnouncementTexts.KILLER
+            TMMRoles.VIGILANTE -> RoleAnnouncementTexts.VIGILANTE
+            TMMRoles.CIVILIAN -> RoleAnnouncementTexts.CIVILIAN
+            else -> RoleAnnouncementTexts.RoleAnnouncementText(id.toTranslationKey(), info.color())
+        }
         TMMRoles.registerRole(info)
         ROLE_MAP[info] = this
         info.setAttachedRole(this)
@@ -53,7 +61,7 @@ abstract class TownOfTrainsRole : ConfigSection, HasName {
 
     open fun getNameTag(withRole: PlayerEntity, lookTarget: PlayerEntity, original: Text): Text = original
 
-    open fun canBeChosen(context: RoleChoiceContext): Boolean = context.type == type
+    open fun canBeChosen(context: RoleChoiceContext): Boolean = context.type == type && isEnabled.value && weight.value > 0
 
     override fun getName(): Text = Text.translatable(getKey().toTranslationKey("role"))
 

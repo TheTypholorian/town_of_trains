@@ -18,7 +18,7 @@
 
   "config.option.town_of_trains.is_enabled": "Is Enabled",
   "config.option.town_of_trains.weight": "Weight",
-  "config.option.town_of_trains.coins_per_task": "Coins Per Task Completed",
+  "config.option.town_of_trains.coins_per_task": "Coins Per Task",
 
   "config.tab.town_of_trains.gameplay": "Gameplay",
   "config.section.town_of_trains.restrictions": "Restrictions",

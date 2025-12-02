@@ -62,7 +62,7 @@ abstract class TownOfTrainsRole : ConfigSection, HasName {
     companion object {
         val ROLE_MAP = HashMap<Role, TownOfTrainsRole>()
 
-        fun pickRole(context: RoleChoiceContext): TownOfTrainsRole? {
+        fun pickRole(context: RoleChoiceContext): TownOfTrainsRole {
             val list = LinkedList<TownOfTrainsRole>()
 
             for (role in ROLE_MAP.values) {
@@ -87,4 +87,12 @@ abstract class TownOfTrainsRole : ConfigSection, HasName {
         val players: List<ServerPlayerEntity>,
         val game: GameWorldComponent
     )
+
+    data class RoleTypePicker(var i: Int = 0) {
+        fun pick(): RoleType = when ((i++) % 6) {
+            0 -> RoleType.KILLER
+            1 -> RoleType.VIGILANTE
+            else -> RoleType.CIVILIAN
+        }
+    }
 }

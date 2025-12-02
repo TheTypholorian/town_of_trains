@@ -23,7 +23,11 @@ object ModRoles {
     }
 
     fun PlayerEntity.setRole(role: TownOfTrainsRole) {
-        (GameWorldComponent.KEY.get(this.world).roles[this.uuid] ?: return).setAttachedRole(role)
+        setRole(role.info)
+    }
+
+    fun PlayerEntity.setRole(role: Role) {
+        GameWorldComponent.KEY.get(this.world).roles[this.uuid] = role
     }
 
     fun Role.getAttachedRole(): TownOfTrainsRole? {

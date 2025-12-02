@@ -24,7 +24,6 @@ interface ConfigWidget : HasName {
     @Environment(EnvType.CLIENT)
     fun postVisit(info: DrawInfo)
 
-    @Environment(EnvType.CLIENT)
     enum class CycleType {
         CLICK, SCROLL_UP, SCROLL_DOWN
     }

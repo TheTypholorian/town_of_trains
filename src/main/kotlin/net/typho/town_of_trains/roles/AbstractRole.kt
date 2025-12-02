@@ -91,8 +91,6 @@ abstract class AbstractRole : ConfigSection, HasName {
                 }
             }
 
-            TownOfTrains.LOGGER.info(list.toString() + " " + context.fallback)
-
             if (list.isEmpty()) {
                 return context.fallback
             }

@@ -99,7 +99,6 @@ object TownOfTrainsConfig {
 
     fun save() {
         val path = getConfigFile()
-        TownOfTrains.LOGGER.info("Saving config to $path")
         Files.newBufferedWriter(path).use { writer ->
             val json = JsonObject()
 
@@ -125,7 +124,6 @@ object TownOfTrainsConfig {
 
     fun load() {
         val path = getConfigFile()
-        TownOfTrains.LOGGER.info("Loading config from $path")
         Files.newBufferedReader(path).use { reader ->
             val json = JsonParser.parseReader(reader)?.asJsonObject ?: return
 
@@ -138,7 +136,7 @@ object TownOfTrainsConfig {
 
                         if (sectionJson != null) {
                             section.children.forEach { option ->
-                                val optionJson = json.get(section.id.toString())
+                                val optionJson = json.get(option.id.toString())
 
                                 if (optionJson != null) {
                                     option.decode(optionJson)

@@ -13,19 +13,19 @@
     "RoleMixin",
     "ScoreboardRoleSelectorComponentMixin",
     "SleepTaskMixin",
-    "TMMMixin",
-    "client.BeveragePlateBlockEntityMixin",
-    "client.LobbyPlayersRendererMixin",
-    "client.RoleNameRendererMixin",
-    "client.RoundTextRendererMixin"
+    "TMMMixin"
   ],
   "client": [
+    "client.BeveragePlateBlockEntityMixin",
     "client.ChatHudMixin",
     "client.DebugHudMixin",
     "client.GameOptionsMixin",
     "client.KeyBindingMixin",
     "client.KeyboardMixin",
-    "client.PlayerEntityRendererMixin"
+    "client.LobbyPlayersRendererMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.RoleNameRendererMixin",
+    "client.RoundTextRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

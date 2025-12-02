@@ -23,6 +23,12 @@
         "adapter": "kotlin",
         "value": "net.typho.town_of_trains.TownOfTrains"
       }
+    ],
+    "cardinal-components": [
+      {
+        "adapter": "kotlin",
+        "value": "net.typho.town_of_trains.cca.ModComponents"
+      }
     ]
   },
   "mixins": [
@@ -32,5 +38,10 @@
     "fabricloader": ">=${loader_version}",
     "fabric-language-kotlin": ">=${kotlin_loader_version}",
     "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "cardinal-components": [
+      "town_of_trains:player_body_info"
+    ]
   }
 }

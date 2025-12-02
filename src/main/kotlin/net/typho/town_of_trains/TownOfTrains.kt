@@ -4,6 +4,7 @@ import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
 import net.fabricmc.api.ModInitializer
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.Identifier
+import net.typho.town_of_trains.cca.ModComponents
 import net.typho.town_of_trains.config.TownOfTrainsConfig
 import net.typho.town_of_trains.event.handleStandardEvents
 import net.typho.town_of_trains.roles.ModRoles
@@ -19,6 +20,7 @@ object TownOfTrains : ModInitializer {
 
     override fun onInitialize() {
         TownOfTrainsConfig.init()
+        ModComponents.init()
         ModRoles.init()
         handleStandardEvents()
     }

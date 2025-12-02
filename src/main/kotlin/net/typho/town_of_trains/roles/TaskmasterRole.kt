@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier
 import net.typho.town_of_trains.TownOfTrains
 import net.typho.town_of_trains.config.ConfigOption
 
-class TaskmasterRole(id: Identifier, type: RoleType, role: Role) : TownOfTrainsRole(id, type, role) {
+open class TaskmasterRole(id: Identifier, type: RoleType, role: Role) : KillerRole(id, type, role) {
     val coinsPerTask = ConfigOption.ofInt(TownOfTrains.id("coins_per_task"), 5, 200, 5, 100)
 
     init {

@@ -11,6 +11,7 @@ object ModRoles {
 
     val KILLER = KillerRole(TMMRoles.KILLER.identifier(), RoleType.KILLER, TMMRoles.KILLER)
     val TASKMASTER = TaskmasterRole(TownOfTrains.id("taskmaster"), RoleType.KILLER, TMMRoles.KILLER)
+    val MERCENARY = MercenaryRole(TownOfTrains.id("mercenary"), RoleType.KILLER, TMMRoles.KILLER)
 
     val CIVILIAN = CivilianRole(TMMRoles.CIVILIAN.identifier(), RoleType.CIVILIAN, TMMRoles.CIVILIAN)
     val TICKET_INSPECTOR = TicketInspectorRole(TownOfTrains.id("ticket_inspector"), RoleType.CIVILIAN, TMMRoles.CIVILIAN)
@@ -18,11 +19,11 @@ object ModRoles {
 
     val VIGILANTE = VigilanteRole(TMMRoles.VIGILANTE.identifier(), RoleType.VIGILANTE, TMMRoles.VIGILANTE)
 
-    fun PlayerEntity.getRole(): TownOfTrainsRole? {
+    fun PlayerEntity.getRole(): AbstractRole? {
         return (GameWorldComponent.KEY.get(this.world).roles[this.uuid] ?: return null).getAttachedRole()
     }
 
-    fun PlayerEntity.setRole(role: TownOfTrainsRole) {
+    fun PlayerEntity.setRole(role: AbstractRole) {
         setRole(role.info)
     }
 
@@ -30,11 +31,11 @@ object ModRoles {
         GameWorldComponent.KEY.get(this.world).roles[this.uuid] = role
     }
 
-    fun Role.getAttachedRole(): TownOfTrainsRole? {
+    fun Role.getAttachedRole(): AbstractRole? {
         return (this as RoleAttacher).`town_of_trains$getRole`()
     }
 
-    fun Role.setAttachedRole(role: TownOfTrainsRole) {
+    fun Role.setAttachedRole(role: AbstractRole) {
         (this as RoleAttacher).`town_of_trains$setRole`(role)
     }
 }

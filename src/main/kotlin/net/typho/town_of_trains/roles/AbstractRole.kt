@@ -5,6 +5,8 @@ import dev.doctor4t.trainmurdermystery.api.TMMRoles
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts
+import dev.doctor4t.trainmurdermystery.game.GameConstants
+import dev.doctor4t.trainmurdermystery.util.ShopEntry
 import net.minecraft.block.BlockState
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.server.network.ServerPlayerEntity
@@ -20,7 +22,7 @@ import net.typho.town_of_trains.config.ConfigSection
 import net.typho.town_of_trains.roles.ModRoles.setAttachedRole
 import java.util.*
 
-abstract class TownOfTrainsRole : ConfigSection, HasName {
+abstract class AbstractRole : ConfigSection, HasName {
     val type: RoleType
     val info: Role
     val announcementText: RoleAnnouncementTexts.RoleAnnouncementText
@@ -55,6 +57,14 @@ abstract class TownOfTrainsRole : ConfigSection, HasName {
 
     open fun onTaskCompleted(player: PlayerEntity, task: PlayerMoodComponent.Task) = Unit
 
+    open fun onKill(killer: PlayerEntity, victim: PlayerEntity) = Unit
+
+    open fun onKilled(killer: PlayerEntity, victim: PlayerEntity) = Unit
+
+    open fun canUseShop(player: PlayerEntity) = info.canUseKiller()
+
+    open fun getShopItems(player: PlayerEntity): List<ShopEntry> = GameConstants.SHOP_ENTRIES
+
     open fun hasIdleMoney(player: PlayerEntity) = info.canUseKiller()
 
     open fun canSeePoison(player: PlayerEntity, world: World, pos: BlockPos, state: BlockState) = info.canUseKiller()
@@ -65,13 +75,13 @@ abstract class TownOfTrainsRole : ConfigSection, HasName {
 
     override fun getName(): Text = Text.translatable(getKey().toTranslationKey("role"))
 
-    override fun getDesc(): Text = Text.translatable(getKey().toTranslationKey("role", "desc"))
+    override fun getDesc(): Text = announcementText.goalText.apply(5) //Text.translatable(getKey().toTranslationKey("role", "desc"))
 
     companion object {
-        val ROLE_MAP = HashMap<Role, TownOfTrainsRole>()
+        val ROLE_MAP = HashMap<Role, AbstractRole>()
 
-        fun pickRole(context: RoleChoiceContext): TownOfTrainsRole {
-            val list = LinkedList<TownOfTrainsRole>()
+        fun pickRole(context: RoleChoiceContext): AbstractRole {
+            val list = LinkedList<AbstractRole>()
 
             for (role in ROLE_MAP.values) {
                 if (role.canBeChosen(context)) {
@@ -81,8 +91,10 @@ abstract class TownOfTrainsRole : ConfigSection, HasName {
                 }
             }
 
+            TownOfTrains.LOGGER.info(list.toString() + " " + context.fallback)
+
             if (list.isEmpty()) {
-                return context.type.defaultRole
+                return context.fallback
             }
 
             return list.random()
@@ -91,16 +103,9 @@ abstract class TownOfTrainsRole : ConfigSection, HasName {
 
     data class RoleChoiceContext(
         val type: RoleType,
+        val fallback: AbstractRole,
         val world: ServerWorld,
         val players: List<ServerPlayerEntity>,
         val game: GameWorldComponent
     )
-
-    data class RoleTypePicker(var i: Int = 0) {
-        fun pick(): RoleType = when ((i++) % 6) {
-            0 -> RoleType.KILLER
-            1 -> RoleType.VIGILANTE
-            else -> RoleType.CIVILIAN
-        }
-    }
 }

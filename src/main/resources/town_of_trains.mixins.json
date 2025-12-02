@@ -4,34 +4,29 @@
   "package": "net.typho.town_of_trains.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "GameFunctionsMixin",
     "GameRoundEndComponentMixin",
-    "GroupSoundPacketMixin",
-    "LocationSoundPacketMixin",
     "MurderGameModeMixin",
     "OutsideTaskMixin",
     "PlayerEntityMixin",
     "PlayerMoodComponentMixin",
-    "PlayerSoundPacketMixin",
     "RoleMixin",
     "ScoreboardRoleSelectorComponentMixin",
-    "ServerMixin",
     "SleepTaskMixin",
-    "SoundPacketMixin",
     "TMMMixin"
   ],
   "client": [
-    "client.AudioChannelMixin",
     "client.BeveragePlateBlockEntityMixin",
     "client.ChatHudMixin",
     "client.DebugHudMixin",
     "client.GameOptionsMixin",
     "client.KeyBindingMixin",
     "client.KeyboardMixin",
+    "client.LimitedInventoryScreenMixin",
     "client.LobbyPlayersRendererMixin",
     "client.PlayerEntityRendererMixin",
     "client.RoleNameRendererMixin",
-    "client.RoundTextRendererMixin",
-    "client.TMMConfigMixin"
+    "client.RoundTextRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

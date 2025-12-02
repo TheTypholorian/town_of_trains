@@ -6,9 +6,9 @@ import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.cca.GameRoundEndComponent;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.typho.town_of_trains.roles.AbstractRole;
 import net.typho.town_of_trains.roles.ModRoles;
 import net.typho.town_of_trains.roles.RoleType;
-import net.typho.town_of_trains.roles.TownOfTrainsRole;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -26,7 +26,7 @@ public class GameRoundEndComponentMixin {
             return true;
         }
 
-        TownOfTrainsRole attached = ModRoles.INSTANCE.getAttachedRole(role);
+        AbstractRole attached = ModRoles.INSTANCE.getAttachedRole(role);
 
         if (attached == null) {
             return false;

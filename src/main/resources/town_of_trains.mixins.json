@@ -4,6 +4,7 @@
   "package": "net.typho.town_of_trains.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "GameFunctionsMixin",
     "GameRoundEndComponentMixin",
     "MurderGameModeMixin",
     "OutsideTaskMixin",

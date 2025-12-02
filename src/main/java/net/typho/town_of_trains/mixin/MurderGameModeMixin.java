@@ -75,6 +75,7 @@ public class MurderGameModeMixin {
     private static Role assignRolesAndGetKillerCount(Role role, @Local(argsOnly = true) ServerWorld world, @Local(argsOnly = true) List<ServerPlayerEntity> players, @Local(argsOnly = true) GameWorldComponent game) {
         return AbstractRole.Companion.pickRole(new AbstractRole.RoleChoiceContext(
                 RoleType.CIVILIAN,
+                ModRoles.INSTANCE.getCIVILIAN(),
                 world,
                 players,
                 game

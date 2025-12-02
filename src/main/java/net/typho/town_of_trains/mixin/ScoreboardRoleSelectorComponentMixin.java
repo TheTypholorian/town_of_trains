@@ -52,6 +52,7 @@ public class ScoreboardRoleSelectorComponentMixin {
     private Role assignKillers(Role role, @Local(argsOnly = true) ServerWorld world, @Local(argsOnly = true) List<ServerPlayerEntity> players, @Local(argsOnly = true) GameWorldComponent game) {
         return AbstractRole.Companion.pickRole(new AbstractRole.RoleChoiceContext(
                 RoleType.KILLER,
+                ModRoles.INSTANCE.getKILLER(),
                 world,
                 players,
                 game
@@ -69,6 +70,7 @@ public class ScoreboardRoleSelectorComponentMixin {
     private Role assignVigilantes(Role role, @Local(argsOnly = true) ServerWorld world, @Local(argsOnly = true) List<ServerPlayerEntity> players, @Local(argsOnly = true) GameWorldComponent game) {
         return AbstractRole.Companion.pickRole(new AbstractRole.RoleChoiceContext(
                 RoleType.VIGILANTE,
+                ModRoles.INSTANCE.getVIGILANTE(),
                 world,
                 players,
                 game

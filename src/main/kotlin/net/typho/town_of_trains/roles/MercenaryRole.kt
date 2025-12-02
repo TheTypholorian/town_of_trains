@@ -8,7 +8,7 @@ import net.typho.town_of_trains.TownOfTrains
 import net.typho.town_of_trains.config.ConfigOption
 
 open class MercenaryRole(id: Identifier, type: RoleType, role: Role) : KillerRole(id, type, role) {
-    val initialSize = ConfigOption.ofInt(TownOfTrains.id("initial_size"), 1, 12, 1, 2)
+    val initialSize = ConfigOption.ofInt(TownOfTrains.id("initial_shop_size"), 1, 12, 1, 2)
     val perKill = ConfigOption.ofInt(TownOfTrains.id("per_kill"), 1, 12, 1, 1)
 
     init {

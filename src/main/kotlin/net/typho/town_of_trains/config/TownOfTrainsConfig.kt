@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.server.network.ServerPlayerEntity
 import net.typho.town_of_trains.TownOfTrains
 import net.typho.town_of_trains.packet.ConfigChangePacket
 import java.nio.file.Files
@@ -61,18 +62,15 @@ object TownOfTrainsConfig {
             save()
         }
         ServerPlayConnectionEvents.JOIN.register { handler, sender, server ->
-            ServerPlayNetworking.send(
-                handler.player,
-                ConfigChangePacket(
-                    false,
-                    tabs.stream()
-                        .flatMap { tab -> tab.children.stream() }
-                        .flatMap { section -> section.children.stream() }
-                        .toList()
-                )
-            )
+            updateToClient(handler.player, false)
         }
-        ServerLifecycleEvents.SERVER_STARTED.register { load() }
+        ServerLifecycleEvents.SERVER_STARTED.register { server ->
+            load()
+
+            for (player in server.playerManager.playerList) {
+                updateToClient(player, false)
+            }
+        }
         ServerLifecycleEvents.SERVER_STOPPING.register { save() }
     }
 
@@ -86,8 +84,23 @@ object TownOfTrainsConfig {
         return path
     }
 
+    fun updateToClient(player: ServerPlayerEntity, display: Boolean) {
+        ServerPlayNetworking.send(
+            player,
+            ConfigChangePacket(
+                display,
+                tabs.stream()
+                    .flatMap { tab -> tab.children.stream() }
+                    .flatMap { section -> section.children.stream() }
+                    .toList()
+            )
+        )
+    }
+
     fun save() {
-        Files.newBufferedWriter(getConfigFile()).use { writer ->
+        val path = getConfigFile()
+        TownOfTrains.LOGGER.info("Saving config to $path")
+        Files.newBufferedWriter(path).use { writer ->
             val json = JsonObject()
 
             tabs.forEach { tab ->
@@ -111,7 +124,9 @@ object TownOfTrainsConfig {
     }
 
     fun load() {
-        Files.newBufferedReader(getConfigFile()).use { reader ->
+        val path = getConfigFile()
+        TownOfTrains.LOGGER.info("Loading config from $path")
+        Files.newBufferedReader(path).use { reader ->
             val json = JsonParser.parseReader(reader)?.asJsonObject ?: return
 
             tabs.forEach { tab ->

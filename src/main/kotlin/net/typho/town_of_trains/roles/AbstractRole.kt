@@ -91,8 +91,10 @@ abstract class AbstractRole : ConfigSection, HasName {
                 }
             }
 
+            TownOfTrains.LOGGER.info(list.toString() + " " + context.fallback)
+
             if (list.isEmpty()) {
-                return context.type.defaultRole
+                return context.fallback
             }
 
             return list.random()
@@ -101,6 +103,7 @@ abstract class AbstractRole : ConfigSection, HasName {
 
     data class RoleChoiceContext(
         val type: RoleType,
+        val fallback: AbstractRole,
         val world: ServerWorld,
         val players: List<ServerPlayerEntity>,
         val game: GameWorldComponent

@@ -12,8 +12,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.typho.town_of_trains.roles.AbstractRole;
 import net.typho.town_of_trains.roles.ModRoles;
-import net.typho.town_of_trains.roles.TownOfTrainsRole;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -34,7 +34,7 @@ public class BeveragePlateBlockEntityMixin {
     )
     private static boolean tickWithoutFearOfCrashing(Operation<Boolean> original, @Local(argsOnly = true) World world, @Local(argsOnly = true) BlockPos pos, @Local(argsOnly = true) BlockState state) {
         PlayerEntity player = MinecraftClient.getInstance().player;
-        TownOfTrainsRole role = ModRoles.INSTANCE.getRole(player);
+        AbstractRole role = ModRoles.INSTANCE.getRole(player);
 
         if (role == null) {
             return original.call();

@@ -22,6 +22,7 @@
     "client.GameOptionsMixin",
     "client.KeyBindingMixin",
     "client.KeyboardMixin",
+    "client.LimitedInventoryScreenMixin",
     "client.LobbyPlayersRendererMixin",
     "client.PlayerEntityRendererMixin",
     "client.RoleNameRendererMixin",

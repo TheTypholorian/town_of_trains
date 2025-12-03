@@ -132,11 +132,11 @@ object TownOfTrainsConfig {
 
                 if (tabJson != null) {
                     tab.children.forEach { section ->
-                        val sectionJson = json.getAsJsonObject(section.id.toString())
+                        val sectionJson = tabJson.getAsJsonObject(section.id.toString())
 
                         if (sectionJson != null) {
                             section.children.forEach { option ->
-                                val optionJson = json.get(option.id.toString())
+                                val optionJson = sectionJson.get(option.id.toString())
 
                                 if (optionJson != null) {
                                     option.decode(optionJson)

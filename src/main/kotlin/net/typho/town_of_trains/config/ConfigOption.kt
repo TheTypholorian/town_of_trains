@@ -122,7 +122,12 @@ open class ConfigOption<T>(
 
     fun getValueDesc(): Text? = toText.toDesc(value)
 
-    fun getChangeText(): Text = getName().copy().append(" is now set to ").append(getValueText())
+    fun getChangeText(): Text = Text.translatable(
+        "config.option.changed_text",
+        if (parent == null) getName()
+        else Text.translatable("config.option.parented", parent!!.getName(), getName()),
+        getValueText()
+    )
 
     fun encode(buf: ByteBuf) {
         packetCodec.encode(buf, value)

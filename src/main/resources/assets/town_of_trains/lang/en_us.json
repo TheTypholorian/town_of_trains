@@ -16,6 +16,8 @@
   "gui.town_of_trains.player_position_type.never": "Never",
   "gui.town_of_trains.player_position_type.never.desc": "Never, regardless of the player and game state",
 
+  "config.option.parented": "%s/%s",
+  "config.option.changed_text": "%s is now set to %s",
   "config.option.town_of_trains.is_enabled": "Is Enabled",
   "config.option.town_of_trains.weight": "Weight",
   "config.option.town_of_trains.coins_per_task": "Coins Per Task",

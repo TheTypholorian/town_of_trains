@@ -6,6 +6,7 @@
   "mixins": [
     "GameFunctionsMixin",
     "GameRoundEndComponentMixin",
+    "GameWorldComponentMixin",
     "GroupSoundPacketMixin",
     "LocationSoundPacketMixin",
     "MurderGameModeMixin",
@@ -21,6 +22,7 @@
     "TMMMixin"
   ],
   "client": [
+    "client.AudioChannelMixin",
     "client.BeveragePlateBlockEntityMixin",
     "client.ChatHudMixin",
     "client.DebugHudMixin",
@@ -31,8 +33,7 @@
     "client.LobbyPlayersRendererMixin",
     "client.PlayerEntityRendererMixin",
     "client.RoleNameRendererMixin",
-    "client.RoundTextRendererMixin",
-    "client.AudioChannelMixin"
+    "client.RoundTextRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

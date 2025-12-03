@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.doctor4t.trainmurdermystery.block_entity.BeveragePlateBlockEntity;
+import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -40,6 +41,6 @@ public class BeveragePlateBlockEntityMixin {
             return original.call();
         }
 
-        return role.canSeePoison(player, world, pos, state);
+        return role.canSeePoison(player, world, pos, state, GameWorldComponent.KEY.get(player.getWorld()));
     }
 }

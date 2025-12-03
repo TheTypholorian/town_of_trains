@@ -55,21 +55,37 @@ abstract class AbstractRole : ConfigSection, HasName {
         type.configTab.addChild(this)
     }
 
-    open fun onTaskCompleted(player: PlayerEntity, task: PlayerMoodComponent.Task) = Unit
+    open fun onAssigned(player: PlayerEntity?) = Unit
 
-    open fun onKill(killer: PlayerEntity, victim: PlayerEntity) = Unit
+    open fun onRemoved(player: PlayerEntity?) {
+        if (this is RoleWithInfo<*> && player != null) {
+            setInfo(player, null)
+        }
+    }
 
-    open fun onKilled(killer: PlayerEntity, victim: PlayerEntity) = Unit
+    open fun onGameStart(player: PlayerEntity, game: GameWorldComponent = GameWorldComponent.KEY.get(player.world)) = Unit
 
-    open fun canUseShop(player: PlayerEntity) = info.canUseKiller()
+    open fun onGameEnd(player: PlayerEntity, game: GameWorldComponent = GameWorldComponent.KEY.get(player.world)) = Unit
 
-    open fun getShopItems(player: PlayerEntity): List<ShopEntry> = GameConstants.SHOP_ENTRIES
+    open fun onClientTick(player: PlayerEntity, game: GameWorldComponent = GameWorldComponent.KEY.get(player.world)) = Unit
 
-    open fun hasIdleMoney(player: PlayerEntity) = info.canUseKiller()
+    open fun onServerTick(player: PlayerEntity, game: GameWorldComponent = GameWorldComponent.KEY.get(player.world)) = Unit
 
-    open fun canSeePoison(player: PlayerEntity, world: World, pos: BlockPos, state: BlockState) = info.canUseKiller()
+    open fun onTaskCompleted(player: PlayerEntity, task: PlayerMoodComponent.Task, game: GameWorldComponent = GameWorldComponent.KEY.get(player.world)) = Unit
 
-    open fun getNameTag(withRole: PlayerEntity, lookTarget: PlayerEntity, original: Text): Text = original
+    open fun onKill(killer: PlayerEntity, victim: PlayerEntity, game: GameWorldComponent = GameWorldComponent.KEY.get(killer.world)) = Unit
+
+    open fun onKilled(killer: PlayerEntity, victim: PlayerEntity, game: GameWorldComponent = GameWorldComponent.KEY.get(killer.world)) = Unit
+
+    open fun canUseShop(player: PlayerEntity, game: GameWorldComponent = GameWorldComponent.KEY.get(player.world)) = info.canUseKiller()
+
+    open fun getShopItems(player: PlayerEntity, game: GameWorldComponent = GameWorldComponent.KEY.get(player.world)): List<ShopEntry> = GameConstants.SHOP_ENTRIES
+
+    open fun hasIdleMoney(player: PlayerEntity, game: GameWorldComponent = GameWorldComponent.KEY.get(player.world)) = info.canUseKiller()
+
+    open fun canSeePoison(player: PlayerEntity, world: World, pos: BlockPos, state: BlockState, game: GameWorldComponent = GameWorldComponent.KEY.get(player.world)) = info.canUseKiller()
+
+    open fun getNameTag(withRole: PlayerEntity, lookTarget: PlayerEntity, original: Text, game: GameWorldComponent = GameWorldComponent.KEY.get(withRole.world)): Text = original
 
     open fun canBeChosen(context: RoleChoiceContext): Boolean = context.type == type && isEnabled.value && weight.value > 0
 

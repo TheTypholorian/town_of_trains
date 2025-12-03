@@ -1,5 +1,6 @@
 package net.typho.town_of_trains.mixin;
 
+import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.typho.town_of_trains.roles.AbstractRole;
@@ -30,7 +31,7 @@ public class PlayerMoodComponentMixin {
         AbstractRole role = ModRoles.INSTANCE.getRole(player);
 
         if (role != null) {
-            role.onTaskCompleted(player, PlayerMoodComponent.Task.EAT);
+            role.onTaskCompleted(player, PlayerMoodComponent.Task.EAT, GameWorldComponent.KEY.get(player.getWorld()));
         }
     }
 
@@ -46,7 +47,7 @@ public class PlayerMoodComponentMixin {
         AbstractRole role = ModRoles.INSTANCE.getRole(player);
 
         if (role != null) {
-            role.onTaskCompleted(player, PlayerMoodComponent.Task.DRINK);
+            role.onTaskCompleted(player, PlayerMoodComponent.Task.DRINK, GameWorldComponent.KEY.get(player.getWorld()));
         }
     }
 }

@@ -35,7 +35,7 @@ class PlayerBodyInfoComponent(var holder: PlayerBodyEntity) : ComponentV3, Serve
     }
 
     fun sync() {
-        ModComponents.PLAYER_BODY_INFO.get(holder)
+        ModComponents.PLAYER_BODY_INFO.sync(holder)
     }
 
     override fun readFromNbt(nbt: NbtCompound, lookup: RegistryWrapper.WrapperLookup) {
@@ -60,5 +60,9 @@ class PlayerBodyInfoComponent(var holder: PlayerBodyEntity) : ComponentV3, Serve
 
         nbt.put("Suspects", list)
         nbt.put("Reason", NbtString.of(reason.toString()))
+    }
+
+    companion object {
+        fun PlayerBodyEntity.getBodyInfo(): PlayerBodyInfoComponent = ModComponents.PLAYER_BODY_INFO.get(this)
     }
 }

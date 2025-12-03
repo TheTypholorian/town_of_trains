@@ -40,7 +40,7 @@ public class MurderGameModeMixin {
             return original.call(instance, player);
         }
 
-        return role.hasIdleMoney(player);
+        return role.hasIdleMoney(player, instance);
     }
 
     @WrapOperation(
@@ -89,7 +89,7 @@ public class MurderGameModeMixin {
     private static void assignRolesAndGetKillerCount(@NotNull ServerWorld world, @NotNull List<ServerPlayerEntity> players, GameWorldComponent game, CallbackInfoReturnable<Integer> cir) {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
             for (ServerPlayerEntity player : players) {
-                TownOfTrains.LOGGER.info("Assigned role {} to {}", game.getRole(player), player.getName().getString());
+                TownOfTrains.LOGGER.info("Assigned role {} to {}", game.getRole(player).identifier(), player.getName().getString());
             }
         }
     }

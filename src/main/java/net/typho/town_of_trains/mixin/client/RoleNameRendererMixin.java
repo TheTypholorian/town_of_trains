@@ -3,6 +3,7 @@ package net.typho.town_of_trains.mixin.client;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleNameRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -29,7 +30,7 @@ public class RoleNameRendererMixin {
         AbstractRole role = ModRoles.INSTANCE.getRole(player);
 
         if (role != null) {
-            text = role.getNameTag(player, instance, text);
+            text = role.getNameTag(player, instance, text, GameWorldComponent.KEY.get(player.getWorld()));
         }
 
         return text;

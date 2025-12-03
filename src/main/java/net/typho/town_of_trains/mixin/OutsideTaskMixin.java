@@ -1,6 +1,7 @@
 package net.typho.town_of_trains.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.typho.town_of_trains.roles.AbstractRole;
@@ -30,7 +31,7 @@ public class OutsideTaskMixin {
             AbstractRole role = ModRoles.INSTANCE.getRole(player);
 
             if (role != null) {
-                role.onTaskCompleted(player, PlayerMoodComponent.Task.OUTSIDE);
+                role.onTaskCompleted(player, PlayerMoodComponent.Task.OUTSIDE, GameWorldComponent.KEY.get(player.getWorld()));
             }
         }
     }

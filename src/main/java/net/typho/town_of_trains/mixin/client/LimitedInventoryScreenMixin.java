@@ -37,7 +37,7 @@ public class LimitedInventoryScreenMixin {
             return original.call(instance, player);
         }
 
-        return role.canUseShop(player);
+        return role.canUseShop(player, GameWorldComponent.KEY.get(player.getWorld()));
     }
 
     @ModifyVariable(
@@ -53,6 +53,6 @@ public class LimitedInventoryScreenMixin {
             return value;
         }
 
-        return role.getShopItems(player);
+        return role.getShopItems(player, GameWorldComponent.KEY.get(player.getWorld()));
     }
 }

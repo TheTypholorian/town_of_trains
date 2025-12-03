@@ -41,7 +41,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "town_of_trains:player_body_info"
+      "town_of_trains:player_body_info",
+      "town_of_trains:player_role_info"
     ]
   }
 }

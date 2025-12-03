@@ -1,6 +1,7 @@
 package net.typho.town_of_trains.roles
 
 import dev.doctor4t.trainmurdermystery.api.Role
+import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
 import net.minecraft.block.BlockState
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.Identifier
@@ -8,5 +9,5 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 open class BartenderRole(id: Identifier, type: RoleType, role: Role) : CivilianRole(id, type, role) {
-    override fun canSeePoison(player: PlayerEntity, world: World, pos: BlockPos, state: BlockState): Boolean = true
+    override fun canSeePoison(player: PlayerEntity, world: World, pos: BlockPos, state: BlockState, game: GameWorldComponent): Boolean = true
 }

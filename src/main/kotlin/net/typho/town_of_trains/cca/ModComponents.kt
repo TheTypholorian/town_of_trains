@@ -23,11 +23,12 @@ object ModComponents : EntityComponentInitializer {
     override fun registerEntityComponentFactories(registry: EntityComponentFactoryRegistry) {
         registry.registerFor(
             PlayerBodyEntity::class.java,
-            PLAYER_BODY_INFO
-        ) { holder -> PlayerBodyInfoComponent(holder) }
+            PLAYER_BODY_INFO,
+            ::PlayerBodyInfoComponent
+        )
         registry.registerForPlayers(
             PLAYER_ROLE_INFO,
-            { holder -> PlayerRoleInfoComponent(holder) },
+            ::PlayerRoleInfoComponent,
             RespawnCopyStrategy.NEVER_COPY
         )
     }

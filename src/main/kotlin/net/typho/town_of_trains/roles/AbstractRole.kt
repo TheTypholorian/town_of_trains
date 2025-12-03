@@ -55,10 +55,12 @@ abstract class AbstractRole : ConfigSection, HasName {
         type.configTab.addChild(this)
     }
 
+    override fun toString(): String = id.toString()
+
     open fun onAssigned(player: PlayerEntity?) = Unit
 
     open fun onRemoved(player: PlayerEntity?) {
-        if (this is RoleWithInfo<*> && player != null) {
+        if (this is RoleWithInfo<*> && player != null && !player.world.isClient) {
             setInfo(player, null)
         }
     }

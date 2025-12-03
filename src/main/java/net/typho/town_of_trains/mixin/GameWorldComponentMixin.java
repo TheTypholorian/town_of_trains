@@ -29,7 +29,8 @@ public class GameWorldComponentMixin {
     private World world;
 
     @Shadow
-    private GameWorldComponent.GameStatus gameStatus;
+    @Final
+    private HashMap<UUID, Role> roles;
 
     @WrapOperation(
             method = "addRole(Ljava/util/UUID;Ldev/doctor4t/trainmurdermystery/api/Role;)V",
@@ -42,19 +43,21 @@ public class GameWorldComponentMixin {
         PlayerEntity player = world.getPlayerByUuid((UUID) key);
         V old = original.call(instance, key, value);
 
-        if (value instanceof RoleAttacher attacher) {
-            AbstractRole role = attacher.town_of_trains$getRole();
+        if (old != value) {
+            if (value instanceof RoleAttacher attacher) {
+                AbstractRole role = attacher.town_of_trains$getRole();
 
-            if (role != null) {
-                role.onAssigned(player);
+                if (role != null) {
+                    role.onAssigned(player);
+                }
             }
-        }
 
-        if (old instanceof RoleAttacher attacher) {
-            AbstractRole role = attacher.town_of_trains$getRole();
+            if (old instanceof RoleAttacher attacher) {
+                AbstractRole role = attacher.town_of_trains$getRole();
 
-            if (role != null) {
-                role.onRemoved(player);
+                if (role != null) {
+                    role.onRemoved(player);
+                }
             }
         }
 
@@ -84,6 +87,32 @@ public class GameWorldComponentMixin {
             return remove;
         });
     }
+
+    /*
+    @WrapOperation(
+            method = "setRoles",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;resetRole(Ldev/doctor4t/trainmurdermystery/api/Role;)V"
+            )
+    )
+    private void setRoles(GameWorldComponent instance, Role role, Operation<Void> original, @Local(argsOnly = true) List<UUID> players) {
+        roles.entrySet().removeIf(entry -> {
+            if (entry.getValue() == role && !players.contains(entry.getKey())) {
+                PlayerEntity player = world.getPlayerByUuid(entry.getKey());
+                AbstractRole abRole = ModRoles.INSTANCE.getAttachedRole(entry.getValue());
+
+                if (abRole != null) {
+                    abRole.onRemoved(player);
+                }
+
+                return true;
+            }
+
+            return false;
+        });
+    }
+     */
 
     @Inject(
             method = "clientTick",

@@ -4,7 +4,10 @@ import dev.doctor4t.trainmurdermystery.api.Role
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
 import dev.doctor4t.trainmurdermystery.util.ShopEntry
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.nbt.*
+import net.minecraft.nbt.NbtCompound
+import net.minecraft.nbt.NbtElement
+import net.minecraft.nbt.NbtInt
+import net.minecraft.nbt.NbtList
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.util.Identifier
 import net.typho.town_of_trains.TownOfTrains
@@ -20,13 +23,12 @@ open class MercenaryRole(id: Identifier, type: RoleType, role: Role) : KillerRol
     }
 
     override fun onAssigned(player: PlayerEntity?) {
-        if (player != null) {
+        if (player != null && !player.world.isClient) {
             setInfo(player, MercenaryInfo(listOf()))
         }
     }
 
     override fun onGameStart(player: PlayerEntity, game: GameWorldComponent) {
-        TownOfTrains.LOGGER.info("game start")
         var info = getInfo(player)
 
         if (info == null) {
@@ -51,11 +53,9 @@ open class MercenaryRole(id: Identifier, type: RoleType, role: Role) : KillerRol
         }
 
         setInfo(player, info)
-        TownOfTrains.LOGGER.info("\t${info.unlocked}")
     }
 
     override fun onKill(killer: PlayerEntity, victim: PlayerEntity, game: GameWorldComponent) {
-        TownOfTrains.LOGGER.info("on kill")
         val info = getInfo(killer)!!
 
         if (perKill.value > 0) {
@@ -69,32 +69,29 @@ open class MercenaryRole(id: Identifier, type: RoleType, role: Role) : KillerRol
             }
             sync(killer)
         }
-        TownOfTrains.LOGGER.info("\t${info.unlocked}")
     }
 
     override fun getShopItems(player: PlayerEntity, game: GameWorldComponent): List<ShopEntry> {
         val items = super.getShopItems(player, game)
-        val r = getInfo(player)!!.unlocked.stream()
-            .map { i -> items[i] }
+        return getInfo(player)!!.unlocked.stream()
+            .map{ i -> items[i] }
             .toList()
-        TownOfTrains.LOGGER.info("Get shop items $r")
-        return r
     }
 
     override fun readFromNbt(
         nbt: NbtCompound,
-        lookup: RegistryWrapper.WrapperLookup
+        lookup: RegistryWrapper.WrapperLookup,
+        old: MercenaryInfo?
     ): MercenaryInfo? {
+        val info = old ?: MercenaryInfo(listOf())
         val list = nbt.getList("Unlocked", NbtElement.INT_TYPE.toInt())
-        val info = MercenaryInfo(listOf())
 
         if (list != null) {
-            for (element in list) {
-                info.unlocked += (element as AbstractNbtNumber).intValue()
+            info.unlocked = listOf()
+            repeat(list.size) { i ->
+                info.unlocked += list.getInt(i)
             }
         }
-
-        TownOfTrains.LOGGER.info("Reading from nbt, unlocked: ${info.unlocked}, list: $list")
 
         return info
     }
@@ -112,12 +109,12 @@ open class MercenaryRole(id: Identifier, type: RoleType, role: Role) : KillerRol
             }
         }
 
-        TownOfTrains.LOGGER.info("Writing to nbt, unlocked: ${value?.unlocked}, list: $list")
-
         nbt.put("Unlocked", list)
     }
 
     data class MercenaryInfo(
         var unlocked: List<Int>
-    )
+    ) {
+        override fun toString(): String = unlocked.toString()
+    }
 }

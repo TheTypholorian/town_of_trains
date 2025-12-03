@@ -12,12 +12,14 @@ interface RoleWithInfo<T> {
     fun getInfo(player: PlayerEntity): T? = player.getRoleInfo().info as? T
 
     fun setInfo(player: PlayerEntity, value: T?) {
-        player.getRoleInfo().info = value
+        val role = player.getRoleInfo()
+        role.info = value
+        role.sync()
     }
 
     fun sync(player: PlayerEntity) = ModComponents.PLAYER_ROLE_INFO.sync(player)
 
-    fun readFromNbt(nbt: NbtCompound, lookup: RegistryWrapper.WrapperLookup): T?
+    fun readFromNbt(nbt: NbtCompound, lookup: RegistryWrapper.WrapperLookup, old: T?): T?
 
     fun writeToNbt(nbt: NbtCompound, lookup: RegistryWrapper.WrapperLookup, value: T?)
 }

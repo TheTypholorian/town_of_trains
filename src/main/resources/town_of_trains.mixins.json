@@ -13,6 +13,7 @@
     "OutsideTaskMixin",
     "PlayerEntityMixin",
     "PlayerMoodComponentMixin",
+    "PlayerShopComponentMixin",
     "PlayerSoundPacketMixin",
     "RoleMixin",
     "ScoreboardRoleSelectorComponentMixin",

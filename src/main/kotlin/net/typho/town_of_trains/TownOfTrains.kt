@@ -26,7 +26,7 @@ object TownOfTrains : ModInitializer {
         handleStandardEvents()
     }
 
-    fun id(id: String) = Identifier.of(MOD_ID, id)
+    fun id(id: String): Identifier = Identifier.of(MOD_ID, id)
 
     fun PlayerEntity.getGameComponent(): GameWorldComponent = GameWorldComponent.KEY.get(world)
 }

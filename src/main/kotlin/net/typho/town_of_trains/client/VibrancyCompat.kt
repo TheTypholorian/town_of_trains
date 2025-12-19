@@ -1,16 +1,19 @@
-package net.typho.town_of_trains
+package net.typho.town_of_trains.client
 
 import dev.doctor4t.trainmurdermystery.index.TMMBlocks
 import dev.doctor4t.trainmurdermystery.index.TMMProperties
 import foundry.veil.api.client.color.Color
+import net.typho.town_of_trains.TownOfTrains
 import net.typho.vibrancy.api.BlockStateFunction
 import net.typho.vibrancy.api.DynamicLightInfo
 import org.joml.Vector3f
 import java.util.*
 
-object VibrancyCompat {
+class VibrancyCompat {
+    private constructor()
+
     fun init() {
-        DynamicLightInfo.put(
+        DynamicLightInfo.Companion.put(
             TMMBlocks.TRIMMED_LANTERN,
             DynamicLightInfo(
                 Optional.of(BlockStateFunction(Color(1f, 0.98f, 0.89f))),
@@ -29,7 +32,7 @@ object VibrancyCompat {
                 Optional.of(BlockStateFunction(Vector3f(0.5f, 0.125f, 0.5f)))
             )
         )
-        DynamicLightInfo.put(
+        DynamicLightInfo.Companion.put(
             TMMBlocks.WALL_LAMP,
             DynamicLightInfo(
                 Optional.empty(),
@@ -39,9 +42,15 @@ object VibrancyCompat {
             )
                 .copy(TMMBlocks.TRIMMED_LANTERN)
         )
-        DynamicLightInfo.put(
+        DynamicLightInfo.Companion.put(
             TMMBlocks.NEON_TUBE,
             DynamicLightInfo().copy(TMMBlocks.WALL_LAMP)
         )
+    }
+
+    companion object {
+        val INSTANCE = if (TownOfTrains.HAS_VIBRANCY) VibrancyCompat() else null
+
+        fun isRaytracingEnabled() = TownOfTrains.HAS_VIBRANCY
     }
 }

@@ -10,7 +10,8 @@ import net.typho.town_of_trains.TownOfTrains
 
 open class ConfigTab(
     var id: Identifier,
-    var children: List<ConfigSection>
+    var children: List<ConfigSection>,
+    val env: EnvType = EnvType.SERVER
 ) : ConfigWidget {
     init {
         children.forEach { child -> child.parent = this }

@@ -20,7 +20,8 @@
     "ServerMixin",
     "SleepTaskMixin",
     "SoundPacketMixin",
-    "TMMMixin"
+    "TMMMixin",
+    "client.VibrancyMixin"
   ],
   "client": [
     "client.AudioChannelMixin",

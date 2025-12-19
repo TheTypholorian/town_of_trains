@@ -3,6 +3,7 @@ package net.typho.town_of_trains.config
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import net.fabricmc.api.EnvType
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
@@ -17,6 +18,7 @@ import java.nio.file.Path
 
 object TownOfTrainsConfig {
     const val FILE_NAME = "town_of_trains.json"
+    const val CLIENT_FILE_NAME = "town_of_trains_client.json"
 
     val chat = ConfigOption.ofEnum<PlayerPositionType>(TownOfTrains.id("chat"), PlayerPositionType.NOT_PARTICIPANT)
     val perspective = ConfigOption.ofEnum<PlayerPositionType>(TownOfTrains.id("perspective"), PlayerPositionType.NOT_PARTICIPANT)
@@ -25,19 +27,19 @@ object TownOfTrainsConfig {
     val sprinting = ConfigOption.ofEnum<PlayerPositionType>(TownOfTrains.id("sprinting"), PlayerPositionType.ALWAYS)
     val jumping = ConfigOption.ofEnum<PlayerPositionType>(TownOfTrains.id("jumping"), PlayerPositionType.NEVER)
 
-    val restrictions = ConfigSection(TownOfTrains.id("restrictions"), listOf(
+    val restrictions = ConfigSection(TownOfTrains.id("restrictions"), mutableListOf(
         chat, perspective, debugScreen, nameTags, sprinting, jumping
     ))
 
-    val gameplay = ConfigTab(TownOfTrains.id("gameplay"), listOf(
+    val gameplay = ConfigTab(TownOfTrains.id("gameplay"), mutableListOf(
         restrictions
     ))
-    val killerRoles = ConfigTab(TownOfTrains.id("killers"), listOf())
-    val vigilanteRoles = ConfigTab(TownOfTrains.id("vigilantes"), listOf())
-    val civilianRoles = ConfigTab(TownOfTrains.id("civilians"), listOf())
-    val neutralRoles = ConfigTab(TownOfTrains.id("neutrals"), listOf())
+    val killerRoles = ConfigTab(TownOfTrains.id("killers"), mutableListOf())
+    val vigilanteRoles = ConfigTab(TownOfTrains.id("vigilantes"), mutableListOf())
+    val civilianRoles = ConfigTab(TownOfTrains.id("civilians"), mutableListOf())
+    val neutralRoles = ConfigTab(TownOfTrains.id("neutrals"), mutableListOf())
 
-    val tabs = listOf(
+    val tabs = mutableListOf(
         gameplay,
         killerRoles,
         vigilanteRoles,
@@ -59,23 +61,23 @@ object TownOfTrainsConfig {
                 ServerPlayNetworking.send(player, ConfigChangePacket(true, packet.changes))
             }
 
-            save()
+            save(EnvType.SERVER)
         }
         ServerPlayConnectionEvents.JOIN.register { handler, sender, server ->
             updateToClient(handler.player, false)
         }
         ServerLifecycleEvents.SERVER_STARTED.register { server ->
-            load()
+            load(EnvType.SERVER)
 
             for (player in server.playerManager.playerList) {
                 updateToClient(player, false)
             }
         }
-        ServerLifecycleEvents.SERVER_STOPPING.register { save() }
+        ServerLifecycleEvents.SERVER_STOPPING.register { save(EnvType.SERVER) }
     }
 
-    fun getConfigFile(): Path {
-        val path = FabricLoader.getInstance().configDir.resolve(FILE_NAME)
+    fun getConfigFile(env: EnvType): Path {
+        val path = FabricLoader.getInstance().configDir.resolve(if (env == EnvType.SERVER) FILE_NAME else CLIENT_FILE_NAME)
 
         if (Files.notExists(path)) {
             Files.createFile(path)
@@ -97,8 +99,12 @@ object TownOfTrainsConfig {
         )
     }
 
-    fun save() {
-        val path = getConfigFile()
+    fun save(env: EnvType) {
+        if (env != FabricLoader.getInstance().environmentType) {
+            return
+        }
+
+        val path = getConfigFile(env)
         Files.newBufferedWriter(path).use { writer ->
             val json = JsonObject()
 
@@ -109,23 +115,39 @@ object TownOfTrainsConfig {
                     val sectionJson = JsonObject()
 
                     section.children.forEach { option ->
-                        sectionJson.add(option.id.toString(), option.encode())
+                        if (option.env == env) {
+                            sectionJson.add(option.id.toString(), option.encode())
+                        }
                     }
 
-                    tabJson.add(section.id.toString(), sectionJson)
+                    if (!sectionJson.isEmpty) {
+                        tabJson.add(section.id.toString(), sectionJson)
+                    }
                 }
 
-                json.add(tab.id.toString(), tabJson)
+                if (!tabJson.isEmpty) {
+                    json.add(tab.id.toString(), tabJson)
+                }
             }
 
             writer.write(GsonBuilder().setPrettyPrinting().create().toJson(json))
         }
     }
 
-    fun load() {
-        val path = getConfigFile()
+    fun load(env: EnvType) {
+        if (env != FabricLoader.getInstance().environmentType) {
+            return
+        }
+
+        val path = getConfigFile(env)
         Files.newBufferedReader(path).use { reader ->
-            val json = JsonParser.parseReader(reader)?.asJsonObject ?: return
+            val jsonEl = JsonParser.parseReader(reader)
+
+            if (jsonEl == null || !jsonEl.isJsonObject) {
+                return@use
+            }
+
+            val json = jsonEl.asJsonObject
 
             tabs.forEach { tab ->
                 val tabJson = json.getAsJsonObject(tab.id.toString())

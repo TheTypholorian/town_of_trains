@@ -2,7 +2,6 @@ package net.typho.town_of_trains
 
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
 import net.fabricmc.api.ModInitializer
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.Identifier
@@ -18,18 +17,13 @@ object TownOfTrains : ModInitializer {
 
     @JvmField
     val LOGGER: Logger = LoggerFactory.getLogger("Town of Trains")!!
+    val HAS_VIBRANCY = FabricLoader.getInstance().isModLoaded("vibrancy")
 
     override fun onInitialize() {
         TownOfTrainsConfig.init()
         ModComponents.init()
         ModRoles.init()
         handleStandardEvents()
-
-        if (FabricLoader.getInstance().isModLoaded("vibrancy")) {
-            ClientLifecycleEvents.CLIENT_STARTED.register {
-                VibrancyCompat.init()
-            }
-        }
     }
 
     fun id(id: String): Identifier = Identifier.of(MOD_ID, id)

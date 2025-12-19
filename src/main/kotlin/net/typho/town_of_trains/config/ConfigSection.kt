@@ -9,7 +9,8 @@ import net.minecraft.util.Identifier
 open class ConfigSection(
     var id: Identifier,
     var children: List<ConfigOption<*>>,
-    var parent: ConfigTab? = null
+    var parent: ConfigTab? = null,
+    val env: EnvType = EnvType.SERVER
 ) : ConfigWidget {
     init {
         children.forEach { child -> child.parent = this }

@@ -28,7 +28,8 @@ open class ConfigOption<T>(
     var toText: ToText<T>,
     var cycle: BiFunction<T, ConfigWidget.CycleType, T>,
     var value: T,
-    var parent: ConfigSection? = null
+    var parent: ConfigSection? = null,
+    val env: EnvType = EnvType.SERVER
 ) : ConfigWidget {
     override fun getName(): Text = Text.translatable(id.toTranslationKey("config.option"))
 

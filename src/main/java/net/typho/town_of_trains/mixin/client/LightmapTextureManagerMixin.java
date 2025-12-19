@@ -2,9 +2,9 @@ package net.typho.town_of_trains.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.world.dimension.DimensionType;
+import net.typho.town_of_trains.client.VibrancyCompat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -21,7 +21,7 @@ public class LightmapTextureManagerMixin {
     private float update(DimensionType type, int lightLevel, Operation<Float> original) {
         float b = original.call(type, lightLevel);
 
-        if (FabricLoader.getInstance().isModLoaded("vibrancy")) {
+        if (VibrancyCompat.Companion.isRaytracingEnabled()) {
             b /= 2;
         }
 

@@ -50,10 +50,10 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 
-    modImplementation("maven.modrinth:veil:${project.property("veil_version")}")
-    modImplementation("maven.modrinth:vibrancy:${project.property("vibrancy_version")}")
+    modCompileOnly("maven.modrinth:veil:${project.property("veil_version")}")
+    modCompileOnly("maven.modrinth:vibrancy:${project.property("vibrancy_version")}")
 
-    modImplementation("maven.modrinth:harpy-express-mod:${project.property("harpy_express_version")}")
+    modImplementation("maven.modrinth:wathe:${project.property("harpy_express_version")}")
     modImplementation("dev.doctor4t:ratatouille:${project.property("ratatouille_version")}")
 
     modImplementation("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.property("cca_version")}")

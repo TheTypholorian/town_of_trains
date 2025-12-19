@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.minecraft.client.option.KeyBinding
 import net.minecraft.text.Text
+import net.typho.town_of_trains.TownOfTrains.HAS_VIBRANCY
 import net.typho.town_of_trains.config.TownOfTrainsConfig
 import net.typho.town_of_trains.gui.TownConfigScreen
 import net.typho.town_of_trains.packet.ConfigChangePacket
@@ -24,7 +25,7 @@ object TownOfTrainsClient : ClientModInitializer {
             }
         }
         ClientPlayConnectionEvents.JOIN.register { handler, sender, client ->
-            client.player?.sendMessage(Text.translatable("credits.trainmurdermystery.thank_you"))
+            client.player?.sendMessage(Text.translatable("credits.wathe.thank_you"))
         }
         ClientPlayNetworking.registerGlobalReceiver(ConfigChangePacket.ID) { packet, context ->
             if (packet.display) {
@@ -34,7 +35,10 @@ object TownOfTrainsClient : ClientModInitializer {
             }
         }
         ClientLifecycleEvents.CLIENT_STARTED.register {
-            VibrancyCompat.INSTANCE?.init()
+            if (HAS_VIBRANCY) {
+                VibrancyCompat.init()
+            }
+
             TownOfTrainsConfig.load(EnvType.CLIENT)
         }
         ClientLifecycleEvents.CLIENT_STOPPING.register { TownOfTrainsConfig.save(EnvType.CLIENT) }

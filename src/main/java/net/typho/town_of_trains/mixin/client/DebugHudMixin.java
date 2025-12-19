@@ -18,14 +18,14 @@ public class DebugHudMixin {
     private MinecraftClient client;
 
     @TargetHandler(
-            mixin = "dev.doctor4t.trainmurdermystery.mixin.client.restrictions.DebugHudMixin",
+            mixin = "dev.doctor4t.wathe.mixin.client.restrictions.DebugHudMixin",
             name = "shouldShowDebugHud"
     )
     @WrapOperation(
             method = "@MixinSquared:Handler",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/client/TMMClient;isPlayerAliveAndInSurvival()Z"
+                    target = "Ldev/doctor4t/wathe/client/WatheClient;isPlayerAliveAndInSurvival()Z"
             ),
             remap = false
     )

@@ -1,9 +1,9 @@
 package net.typho.town_of_trains.roles
 
-import dev.doctor4t.trainmurdermystery.api.Role
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent
-import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent
+import dev.doctor4t.wathe.api.Role
+import dev.doctor4t.wathe.cca.GameWorldComponent
+import dev.doctor4t.wathe.cca.PlayerMoodComponent
+import dev.doctor4t.wathe.cca.PlayerShopComponent
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.Identifier
 import net.typho.town_of_trains.TownOfTrains

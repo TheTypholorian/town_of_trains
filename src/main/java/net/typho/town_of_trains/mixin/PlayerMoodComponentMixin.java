@@ -1,7 +1,7 @@
 package net.typho.town_of_trains.mixin;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.typho.town_of_trains.roles.AbstractRole;
 import net.typho.town_of_trains.roles.ModRoles;
@@ -23,7 +23,7 @@ public class PlayerMoodComponentMixin {
             method = "eatFood",
             at = @At(
                     value = "FIELD",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/PlayerMoodComponent$EatTask;fulfilled:Z",
+                    target = "Ldev/doctor4t/wathe/cca/PlayerMoodComponent$EatTask;fulfilled:Z",
                     opcode = Opcodes.PUTFIELD
             )
     )
@@ -39,7 +39,7 @@ public class PlayerMoodComponentMixin {
             method = "drinkCocktail",
             at = @At(
                     value = "FIELD",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/PlayerMoodComponent$DrinkTask;fulfilled:Z",
+                    target = "Ldev/doctor4t/wathe/cca/PlayerMoodComponent$DrinkTask;fulfilled:Z",
                     opcode = Opcodes.PUTFIELD
             )
     )

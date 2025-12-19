@@ -18,14 +18,14 @@ public class KeyboardMixin {
     private MinecraftClient client;
 
     @TargetHandler(
-            mixin = "dev.doctor4t.trainmurdermystery.mixin.client.restrictions.KeyboardMixin",
-            name = "tmm$disableF3Keybinds"
+            mixin = "dev.doctor4t.wathe.mixin.client.restrictions.KeyboardMixin",
+            name = "wathe$disableF3Keybinds"
     )
     @WrapOperation(
             method = "@MixinSquared:Handler",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/client/TMMClient;isPlayerAliveAndInSurvival()Z"
+                    target = "Ldev/doctor4t/wathe/client/WatheClient;isPlayerAliveAndInSurvival()Z"
             ),
             remap = false
     )

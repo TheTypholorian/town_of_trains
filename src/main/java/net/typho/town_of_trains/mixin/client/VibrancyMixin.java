@@ -1,6 +1,6 @@
 package net.typho.town_of_trains.mixin.client;
 
-import net.typho.town_of_trains.client.VibrancyCompat;
+import net.typho.town_of_trains.TownOfTrains;
 import net.typho.vibrancy.Vibrancy;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -34,7 +34,7 @@ public class VibrancyMixin {
             cancellable = true
     )
     private void render(CallbackInfo ci) {
-        if (!VibrancyCompat.Companion.isRaytracingEnabled()) {
+        if (!TownOfTrains.INSTANCE.getHAS_VIBRANCY()) {
             ci.cancel();
         }
     }

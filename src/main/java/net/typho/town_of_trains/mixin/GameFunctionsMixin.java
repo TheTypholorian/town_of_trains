@@ -1,9 +1,9 @@
 package net.typho.town_of_trains.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.entity.PlayerBodyEntity;
+import dev.doctor4t.wathe.game.GameFunctions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -21,7 +21,7 @@ public class GameFunctionsMixin {
             method = "killPlayer(Lnet/minecraft/entity/player/PlayerEntity;ZLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Identifier;)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/entity/PlayerBodyEntity;setPlayerUuid(Ljava/util/UUID;)V"
+                    target = "Ldev/doctor4t/wathe/entity/PlayerBodyEntity;setPlayerUuid(Ljava/util/UUID;)V"
             )
     )
     private static void addBodyInfo(PlayerEntity victim, boolean spawnBody, PlayerEntity killer, Identifier deathReason, CallbackInfo ci, @Local PlayerBodyEntity body) {

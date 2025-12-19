@@ -12,14 +12,14 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = GameOptions.class, priority = 1500)
 public class GameOptionsMixin {
     @TargetHandler(
-            mixin = "dev.doctor4t.trainmurdermystery.mixin.client.restrictions.GameOptionsMixin",
+            mixin = "dev.doctor4t.wathe.mixin.client.restrictions.GameOptionsMixin",
             name = "getPerspective"
     )
     @WrapOperation(
             method = "@MixinSquared:Handler",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/game/GameFunctions;isPlayerAliveAndSurvival(Lnet/minecraft/entity/player/PlayerEntity;)Z"
+                    target = "Ldev/doctor4t/wathe/game/GameFunctions;isPlayerAliveAndSurvival(Lnet/minecraft/entity/player/PlayerEntity;)Z"
             ),
             remap = false
     )

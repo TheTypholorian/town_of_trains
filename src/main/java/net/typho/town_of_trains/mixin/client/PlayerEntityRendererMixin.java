@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = PlayerEntityRenderer.class, priority = 1500)
 public class PlayerEntityRendererMixin {
     @TargetHandler(
-            mixin = "dev.doctor4t.trainmurdermystery.mixin.client.restrictions.PlayerEntityRendererMixin",
-            name = "tmm$disableNameTags"
+            mixin = "dev.doctor4t.wathe.mixin.client.restrictions.PlayerEntityRendererMixin",
+            name = "wathe$disableNameTags"
     )
     @Inject(
             method = "@MixinSquared:Handler",

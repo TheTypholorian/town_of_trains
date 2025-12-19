@@ -1,6 +1,6 @@
 package net.typho.town_of_trains.config
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
+import dev.doctor4t.wathe.cca.GameWorldComponent
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.text.Text
 import net.typho.town_of_trains.HasName

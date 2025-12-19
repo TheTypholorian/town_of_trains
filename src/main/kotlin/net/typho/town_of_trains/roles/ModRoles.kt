@@ -1,23 +1,23 @@
 package net.typho.town_of_trains.roles
 
-import dev.doctor4t.trainmurdermystery.api.Role
-import dev.doctor4t.trainmurdermystery.api.TMMRoles
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
+import dev.doctor4t.wathe.api.Role
+import dev.doctor4t.wathe.api.WatheRoles
+import dev.doctor4t.wathe.cca.GameWorldComponent
 import net.minecraft.entity.player.PlayerEntity
 import net.typho.town_of_trains.TownOfTrains
 
 object ModRoles {
     fun init() = Unit
 
-    val KILLER = KillerRole(TMMRoles.KILLER.identifier(), RoleType.KILLER, TMMRoles.KILLER)
-    val TASKMASTER = TaskmasterRole(TownOfTrains.id("taskmaster"), RoleType.KILLER, TMMRoles.KILLER)
-    val MERCENARY = MercenaryRole(TownOfTrains.id("mercenary"), RoleType.KILLER, TMMRoles.KILLER)
+    val KILLER = KillerRole(WatheRoles.KILLER.identifier(), RoleType.KILLER, WatheRoles.KILLER)
+    val TASKMASTER = TaskmasterRole(TownOfTrains.id("taskmaster"), RoleType.KILLER, WatheRoles.KILLER)
+    val MERCENARY = MercenaryRole(TownOfTrains.id("mercenary"), RoleType.KILLER, WatheRoles.KILLER)
 
-    val CIVILIAN = CivilianRole(TMMRoles.CIVILIAN.identifier(), RoleType.CIVILIAN, TMMRoles.CIVILIAN)
-    val TICKET_INSPECTOR = TicketInspectorRole(TownOfTrains.id("ticket_inspector"), RoleType.CIVILIAN, TMMRoles.CIVILIAN)
-    val BARTENDER = BartenderRole(TownOfTrains.id("bartender"), RoleType.CIVILIAN, TMMRoles.CIVILIAN)
+    val CIVILIAN = CivilianRole(WatheRoles.CIVILIAN.identifier(), RoleType.CIVILIAN, WatheRoles.CIVILIAN)
+    val TICKET_INSPECTOR = TicketInspectorRole(TownOfTrains.id("ticket_inspector"), RoleType.CIVILIAN, WatheRoles.CIVILIAN)
+    val BARTENDER = BartenderRole(TownOfTrains.id("bartender"), RoleType.CIVILIAN, WatheRoles.CIVILIAN)
 
-    val VIGILANTE = VigilanteRole(TMMRoles.VIGILANTE.identifier(), RoleType.VIGILANTE, TMMRoles.VIGILANTE)
+    val VIGILANTE = VigilanteRole(WatheRoles.VIGILANTE.identifier(), RoleType.VIGILANTE, WatheRoles.VIGILANTE)
 
     fun PlayerEntity.getRole(): AbstractRole? {
         return (GameWorldComponent.KEY.get(this.world).roles[this.uuid] ?: return null).getAttachedRole()

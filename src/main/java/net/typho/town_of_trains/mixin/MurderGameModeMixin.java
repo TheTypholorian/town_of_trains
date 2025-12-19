@@ -3,10 +3,10 @@ package net.typho.town_of_trains.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.game.gamemode.MurderGameMode;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -30,7 +30,7 @@ public class MurderGameModeMixin {
             method = "tickServerGameLoop",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z"
+                    target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z"
             )
     )
     private boolean tickServerGameLoop(GameWorldComponent instance, PlayerEntity player, Operation<Boolean> original) {
@@ -47,7 +47,7 @@ public class MurderGameModeMixin {
             method = "initializeGame",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;isRole(Lnet/minecraft/entity/player/PlayerEntity;Ldev/doctor4t/trainmurdermystery/api/Role;)Z"
+                    target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;isRole(Lnet/minecraft/entity/player/PlayerEntity;Ldev/doctor4t/wathe/api/Role;)Z"
             )
     )
     private boolean setRoundEndData(GameWorldComponent instance, PlayerEntity player, Role role, Operation<Boolean> original) {
@@ -61,14 +61,14 @@ public class MurderGameModeMixin {
             return false;
         }
 
-        return attached.getType() == (role == TMMRoles.KILLER ? RoleType.KILLER : RoleType.VIGILANTE);
+        return attached.getType() == (role == WatheRoles.KILLER ? RoleType.KILLER : RoleType.VIGILANTE);
     }
 
     @ModifyArg(
             method = "assignRolesAndGetKillerCount",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;addRole(Lnet/minecraft/entity/player/PlayerEntity;Ldev/doctor4t/trainmurdermystery/api/Role;)V"
+                    target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;addRole(Lnet/minecraft/entity/player/PlayerEntity;Ldev/doctor4t/wathe/api/Role;)V"
             ),
             index = 1
     )

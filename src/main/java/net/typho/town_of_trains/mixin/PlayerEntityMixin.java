@@ -18,8 +18,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @TargetHandler(
-            mixin = "dev.doctor4t.trainmurdermystery.mixin.PlayerEntityMixin",
-            name = "tmm$limitSprint"
+            mixin = "dev.doctor4t.wathe.mixin.PlayerEntityMixin",
+            name = "wathe$limitSprint"
     )
     @Inject(
             method = "@MixinSquared:Handler",
@@ -27,7 +27,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             remap = false,
             cancellable = true
     )
-    private void tmm$limitSprint(CallbackInfo ci, CallbackInfo ci1) {
+    private void wathe$limitSprint(CallbackInfo ci, CallbackInfo ci1) {
         if (!TownOfTrainsConfig.INSTANCE.isSprintingEnabled((PlayerEntity) (Object) this)) {
             setSprinting(false);
             ci1.cancel();

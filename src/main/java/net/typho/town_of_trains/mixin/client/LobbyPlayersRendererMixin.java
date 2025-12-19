@@ -1,6 +1,6 @@
 package net.typho.town_of_trains.mixin.client;
 
-import dev.doctor4t.trainmurdermystery.client.gui.LobbyPlayersRenderer;
+import dev.doctor4t.wathe.client.gui.LobbyPlayersRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.font.TextRenderer;

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = KeyBinding.class, priority = 1500)
 public class KeyBindingMixin {
     @TargetHandler(
-            mixin = "dev.doctor4t.trainmurdermystery.mixin.client.restrictions.KeyBindingMixin",
+            mixin = "dev.doctor4t.wathe.mixin.client.restrictions.KeyBindingMixin",
             name = "shouldSuppressKey"
     )
     @WrapOperation(

@@ -4,8 +4,8 @@ import com.bawnorton.mixinsquared.TargetHandler;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.block_entity.BeveragePlateBlockEntity;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.block_entity.BeveragePlateBlockEntity;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -22,14 +22,14 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = BeveragePlateBlockEntity.class, priority = 1500)
 public class BeveragePlateBlockEntityMixin {
     @TargetHandler(
-            mixin = "dev.doctor4t.trainmurdermystery.mixin.client.self.BeveragePlateBlockEntityMixin",
+            mixin = "dev.doctor4t.wathe.mixin.client.self.BeveragePlateBlockEntityMixin",
             name = "tickWithoutFearOfCrashing"
     )
     @WrapOperation(
             method = "@MixinSquared:Handler",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/client/TMMClient;isKiller()Z"
+                    target = "Ldev/doctor4t/wathe/client/WatheClient;isKiller()Z"
             ),
             remap = false
     )

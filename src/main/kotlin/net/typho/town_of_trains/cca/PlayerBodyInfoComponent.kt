@@ -1,7 +1,7 @@
 package net.typho.town_of_trains.cca
 
-import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity
-import dev.doctor4t.trainmurdermystery.game.GameConstants
+import dev.doctor4t.wathe.entity.PlayerBodyEntity
+import dev.doctor4t.wathe.game.GameConstants
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement

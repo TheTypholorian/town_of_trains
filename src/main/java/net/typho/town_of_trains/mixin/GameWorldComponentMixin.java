@@ -2,8 +2,8 @@ package net.typho.town_of_trains.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.typho.town_of_trains.roles.AbstractRole;
@@ -33,7 +33,7 @@ public class GameWorldComponentMixin {
     private HashMap<UUID, Role> roles;
 
     @WrapOperation(
-            method = "addRole(Ljava/util/UUID;Ldev/doctor4t/trainmurdermystery/api/Role;)V",
+            method = "addRole(Ljava/util/UUID;Ldev/doctor4t/wathe/api/Role;)V",
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/HashMap;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"
@@ -93,7 +93,7 @@ public class GameWorldComponentMixin {
             method = "setRoles",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;resetRole(Ldev/doctor4t/trainmurdermystery/api/Role;)V"
+                    target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;resetRole(Ldev/doctor4t/wathe/api/Role;)V"
             )
     )
     private void setRoles(GameWorldComponent instance, Role role, Operation<Void> original, @Local(argsOnly = true) List<UUID> players) {

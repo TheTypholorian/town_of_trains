@@ -1,8 +1,8 @@
 package net.typho.town_of_trains.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.typho.town_of_trains.roles.AbstractRole;
 import net.typho.town_of_trains.roles.ModRoles;
@@ -22,7 +22,7 @@ public class SleepTaskMixin {
             method = "tick",
             at = @At(
                     value = "FIELD",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/PlayerMoodComponent$SleepTask;timer:I",
+                    target = "Ldev/doctor4t/wathe/cca/PlayerMoodComponent$SleepTask;timer:I",
                     opcode = Opcodes.PUTFIELD
             )
     )

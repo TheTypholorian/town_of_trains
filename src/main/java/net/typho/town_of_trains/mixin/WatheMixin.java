@@ -1,6 +1,6 @@
 package net.typho.town_of_trains.mixin;
 
-import dev.doctor4t.trainmurdermystery.TMM;
+import dev.doctor4t.wathe.Wathe;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(TMM.class)
-public class TMMMixin {
+@Mixin(Wathe.class)
+public class WatheMixin {
     @Inject(
             method = "isSupporter",
             at = @At("HEAD"),

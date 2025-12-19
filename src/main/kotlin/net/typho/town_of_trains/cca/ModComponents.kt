@@ -1,6 +1,6 @@
 package net.typho.town_of_trains.cca
 
-import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity
+import dev.doctor4t.wathe.entity.PlayerBodyEntity
 import net.typho.town_of_trains.TownOfTrains
 import org.ladysnake.cca.api.v3.component.ComponentKey
 import org.ladysnake.cca.api.v3.component.ComponentRegistry

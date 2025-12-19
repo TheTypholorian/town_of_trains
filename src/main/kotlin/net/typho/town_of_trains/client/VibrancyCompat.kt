@@ -1,20 +1,17 @@
 package net.typho.town_of_trains.client
 
-import dev.doctor4t.trainmurdermystery.index.TMMBlocks
-import dev.doctor4t.trainmurdermystery.index.TMMProperties
+import dev.doctor4t.wathe.index.WatheBlocks
+import dev.doctor4t.wathe.index.WatheProperties
 import foundry.veil.api.client.color.Color
-import net.typho.town_of_trains.TownOfTrains
 import net.typho.vibrancy.api.BlockStateFunction
 import net.typho.vibrancy.api.DynamicLightInfo
 import org.joml.Vector3f
 import java.util.*
 
-class VibrancyCompat {
-    private constructor()
-
+object VibrancyCompat {
     fun init() {
         DynamicLightInfo.Companion.put(
-            TMMBlocks.TRIMMED_LANTERN,
+            WatheBlocks.TRIMMED_LANTERN,
             DynamicLightInfo(
                 Optional.of(BlockStateFunction(Color(1f, 0.98f, 0.89f))),
                 Optional.of(
@@ -23,7 +20,7 @@ class VibrancyCompat {
                         BlockStateFunction.Entry(
                             mapOf(
                                 Pair("lit", true),
-                                Pair(TMMProperties.ACTIVE.name, true)
+                                Pair(WatheProperties.ACTIVE.name, true)
                             ), 8f
                         )
                     )
@@ -33,24 +30,18 @@ class VibrancyCompat {
             )
         )
         DynamicLightInfo.Companion.put(
-            TMMBlocks.WALL_LAMP,
+            WatheBlocks.WALL_LAMP,
             DynamicLightInfo(
                 Optional.empty(),
                 Optional.empty(),
                 Optional.empty(),
                 Optional.of(BlockStateFunction(Vector3f(0.5f, 0.5f, 0.5f)))
             )
-                .copy(TMMBlocks.TRIMMED_LANTERN)
+                .copy(WatheBlocks.TRIMMED_LANTERN)
         )
         DynamicLightInfo.Companion.put(
-            TMMBlocks.NEON_TUBE,
-            DynamicLightInfo().copy(TMMBlocks.WALL_LAMP)
+            WatheBlocks.NEON_TUBE,
+            DynamicLightInfo().copy(WatheBlocks.WALL_LAMP)
         )
-    }
-
-    companion object {
-        val INSTANCE = if (TownOfTrains.HAS_VIBRANCY) VibrancyCompat() else null
-
-        fun isRaytracingEnabled() = TownOfTrains.HAS_VIBRANCY
     }
 }

@@ -28,7 +28,7 @@
   "config.section.town_of_trains.restrictions": "Restrictions",
   "config.option.town_of_trains.chat": "Chat Enabled",
   "config.option.town_of_trains.perspective": "Perspective Enabled",
-  "config.option.town_of_trains.debug_screen": "Debug Screen Enabled",
+  "config.option.town_of_trains.debug_screen": "F3 Enabled",
   "config.option.town_of_trains.name_tags": "Name Tags Enabled",
   "config.option.town_of_trains.sprinting": "Sprinting Enabled",
   "config.option.town_of_trains.jumping": "Jumping Enabled",
@@ -71,14 +71,14 @@
   "announcement.goals.town_of_trains.bartender": "See if drink and food trays are poisoned.",
   "announcement.win.town_of_trains.bartender": "Passengers Win!",
 
-  "role.trainmurdermystery.killer": "Killer",
-  "role.trainmurdermystery.killer.desc": "Eliminate all targets with the tools in the shop",
+  "role.wathe.killer": "Killer",
+  "role.wathe.killer.desc": "Eliminate all targets with the tools in the shop",
 
-  "role.trainmurdermystery.civilian": "Civilian",
-  "role.trainmurdermystery.civilian.desc": "Find out the Killer(s)",
+  "role.wathe.civilian": "Civilian",
+  "role.wathe.civilian.desc": "Find out the Killer(s)",
 
-  "role.trainmurdermystery.vigilante": "Vigilante",
-  "role.trainmurdermystery.vigilante.desc": "Take matters into your own hands and eliminate the killer(s)",
+  "role.wathe.vigilante": "Vigilante",
+  "role.wathe.vigilante.desc": "Take matters into your own hands and eliminate the killer(s)",
 
   "key.town_of_trains.config": "Open Config",
   "key.categories.town_of_trains": "Town of Trains"

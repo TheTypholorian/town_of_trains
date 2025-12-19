@@ -3,9 +3,9 @@ package net.typho.town_of_trains.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.ScoreboardRoleSelectorComponent;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.ScoreboardRoleSelectorComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -24,7 +24,7 @@ public class ScoreboardRoleSelectorComponentMixin {
             method = "assignVigilantes",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;isRole(Lnet/minecraft/entity/player/PlayerEntity;Ldev/doctor4t/trainmurdermystery/api/Role;)Z"
+                    target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;isRole(Lnet/minecraft/entity/player/PlayerEntity;Ldev/doctor4t/wathe/api/Role;)Z"
             )
     )
     private boolean setRoundEndData(GameWorldComponent instance, PlayerEntity player, Role role, Operation<Boolean> original) {
@@ -45,7 +45,7 @@ public class ScoreboardRoleSelectorComponentMixin {
             method = "assignKillers",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;addRole(Ljava/util/UUID;Ldev/doctor4t/trainmurdermystery/api/Role;)V"
+                    target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;addRole(Ljava/util/UUID;Ldev/doctor4t/wathe/api/Role;)V"
             ),
             index = 1
     )
@@ -63,7 +63,7 @@ public class ScoreboardRoleSelectorComponentMixin {
             method = "assignVigilantes",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;addRole(Lnet/minecraft/entity/player/PlayerEntity;Ldev/doctor4t/trainmurdermystery/api/Role;)V"
+                    target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;addRole(Lnet/minecraft/entity/player/PlayerEntity;Ldev/doctor4t/wathe/api/Role;)V"
             ),
             index = 1
     )

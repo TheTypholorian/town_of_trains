@@ -1,12 +1,12 @@
 package net.typho.town_of_trains.roles
 
-import dev.doctor4t.trainmurdermystery.api.Role
-import dev.doctor4t.trainmurdermystery.api.TMMRoles
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent
-import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts
-import dev.doctor4t.trainmurdermystery.game.GameConstants
-import dev.doctor4t.trainmurdermystery.util.ShopEntry
+import dev.doctor4t.wathe.api.Role
+import dev.doctor4t.wathe.api.WatheRoles
+import dev.doctor4t.wathe.cca.GameWorldComponent
+import dev.doctor4t.wathe.cca.PlayerMoodComponent
+import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts
+import dev.doctor4t.wathe.game.GameConstants
+import dev.doctor4t.wathe.util.ShopEntry
 import net.minecraft.block.BlockState
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.server.network.ServerPlayerEntity
@@ -42,12 +42,12 @@ abstract class AbstractRole : ConfigSection, HasName {
             role.canSeeTime()
         )
         announcementText = when (this.info) {
-            TMMRoles.KILLER -> RoleAnnouncementTexts.KILLER
-            TMMRoles.VIGILANTE -> RoleAnnouncementTexts.VIGILANTE
-            TMMRoles.CIVILIAN -> RoleAnnouncementTexts.CIVILIAN
+            WatheRoles.KILLER -> RoleAnnouncementTexts.KILLER
+            WatheRoles.VIGILANTE -> RoleAnnouncementTexts.VIGILANTE
+            WatheRoles.CIVILIAN -> RoleAnnouncementTexts.CIVILIAN
             else -> RoleAnnouncementTexts.RoleAnnouncementText(id.toTranslationKey(), info.color())
         }
-        TMMRoles.registerRole(info)
+        WatheRoles.registerRole(info)
         ROLE_MAP[info] = this
         info.setAttachedRole(this)
         addChild(isEnabled)

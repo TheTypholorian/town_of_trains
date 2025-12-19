@@ -1,6 +1,6 @@
 package net.typho.town_of_trains
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent
+import dev.doctor4t.wathe.cca.GameWorldComponent
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.entity.player.PlayerEntity

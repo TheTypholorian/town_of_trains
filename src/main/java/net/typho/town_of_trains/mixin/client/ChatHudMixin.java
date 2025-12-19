@@ -18,14 +18,14 @@ public class ChatHudMixin {
     private MinecraftClient client;
 
     @TargetHandler(
-            mixin = "dev.doctor4t.trainmurdermystery.mixin.client.restrictions.ChatHudMixin",
-            name = "tmm$disableChatRender"
+            mixin = "dev.doctor4t.wathe.mixin.client.restrictions.ChatHudMixin",
+            name = "wathe$disableChatRender"
     )
     @WrapOperation(
             method = "@MixinSquared:Handler",
             at = @At(
                     value = "INVOKE",
-                    target = "Ldev/doctor4t/trainmurdermystery/client/TMMClient;isPlayerAliveAndInSurvival()Z"
+                    target = "Ldev/doctor4t/wathe/client/WatheClient;isPlayerAliveAndInSurvival()Z"
             ),
             remap = false
     )

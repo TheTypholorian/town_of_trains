@@ -37,7 +37,8 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-language-kotlin": ">=${kotlin_loader_version}",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "trainmurdermystery": "*"
   },
   "custom": {
     "cardinal-components": [

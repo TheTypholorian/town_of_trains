@@ -30,6 +30,7 @@
     "client.GameOptionsMixin",
     "client.KeyBindingMixin",
     "client.KeyboardMixin",
+    "client.LightmapTextureManagerMixin",
     "client.LimitedInventoryScreenMixin",
     "client.LobbyPlayersRendererMixin",
     "client.PlayerEntityRendererMixin",

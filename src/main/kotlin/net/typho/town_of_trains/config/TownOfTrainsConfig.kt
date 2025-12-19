@@ -32,10 +32,10 @@ object TownOfTrainsConfig {
     val gameplay = ConfigTab(TownOfTrains.id("gameplay"), listOf(
         restrictions
     ))
-    val killerRoles = ConfigTab(TownOfTrains.id("killer_roles"), listOf())
-    val vigilanteRoles = ConfigTab(TownOfTrains.id("vigilante_roles"), listOf())
-    val civilianRoles = ConfigTab(TownOfTrains.id("civilian_roles"), listOf())
-    val neutralRoles = ConfigTab(TownOfTrains.id("neutral_roles"), listOf())
+    val killerRoles = ConfigTab(TownOfTrains.id("killers"), listOf())
+    val vigilanteRoles = ConfigTab(TownOfTrains.id("vigilantes"), listOf())
+    val civilianRoles = ConfigTab(TownOfTrains.id("civilians"), listOf())
+    val neutralRoles = ConfigTab(TownOfTrains.id("neutrals"), listOf())
 
     val tabs = listOf(
         gameplay,

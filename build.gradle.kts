@@ -50,6 +50,9 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 
+    modImplementation("maven.modrinth:veil:${project.property("veil_version")}")
+    modImplementation("maven.modrinth:vibrancy:${project.property("vibrancy_version")}")
+
     modImplementation("maven.modrinth:harpy-express-mod:${project.property("harpy_express_version")}")
     modImplementation("dev.doctor4t:ratatouille:${project.property("ratatouille_version")}")
 

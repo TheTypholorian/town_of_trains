@@ -33,13 +33,13 @@
   "config.option.town_of_trains.sprinting": "Sprinting Enabled",
   "config.option.town_of_trains.jumping": "Jumping Enabled",
 
-  "config.tab.town_of_trains.killer_roles": "§cKiller Roles",
+  "config.tab.town_of_trains.killers": "§cKillers",
 
-  "config.tab.town_of_trains.vigilante_roles": "§9Vigilante Roles",
+  "config.tab.town_of_trains.vigilantes": "§9Vigilantes",
 
-  "config.tab.town_of_trains.civilian_roles": "§aCivilian Roles",
+  "config.tab.town_of_trains.civilians": "§aCivilians",
 
-  "config.tab.town_of_trains.neutral_roles": "§7Neutral Roles",
+  "config.tab.town_of_trains.neutrals": "§7Neutrals",
 
   "role.town_of_trains.taskmaster": "Taskmaster",
   "announcement.role.town_of_trains.taskmaster": "Taskmaster!",
